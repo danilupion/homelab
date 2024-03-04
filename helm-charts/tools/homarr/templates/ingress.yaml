@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homarr-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - homarr.{{ required "A value for domain is required" .Values.domain }}
+      secretName: homarr-tls-secret
+  rules:
+    - host: homarr.{{ required "A value for domain is required" .Values.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homarr-service
+                port:
+                  number: {{ include "utils.portByName" (dict "ports" .Values.homarr.ports "portName" "http") }}

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: homarr-service
+spec:
+  type: ClusterIP
+  selector:
+    app: homarr
+  ports:
+    {{- range .Values.homarr.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}
