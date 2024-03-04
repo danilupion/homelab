@@ -49,3 +49,7 @@ install-homelab.sh
 ### Security
 
 #### wireguard (based on [WireGuard](https://www.wireguard.com/))
+
+### Media Management
+
+#### prowlarr (based on [Prowlarr](https://prowlarr.com))
