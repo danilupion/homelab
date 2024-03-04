@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lidarr-service
+spec:
+  type: ClusterIP
+  selector:
+    app: lidarr
+  ports:
+    {{- range .Values.lidarr.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}

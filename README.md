@@ -61,3 +61,5 @@ install-homelab.sh
 #### sonarr (based on [Sonarr](https://sonarr.tv/))
 
 #### bazarr (based on [Bazarr](https://www.bazarr.media/))
+
+#### lidarr (based on [Lidarr](https://lidarr.audio/))

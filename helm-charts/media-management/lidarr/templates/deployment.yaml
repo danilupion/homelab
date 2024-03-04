@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lidarr-app
+  labels:
+    app: lidarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lidarr
+  template:
+    metadata:
+      labels:
+        app: lidarr
+    spec:
+      containers:
+        - name: lidarr
+          image: lscr.io/linuxserver/lidarr:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for lidarr.puid is required" .Values.lidarr.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for lidarr.guid is required" .Values.lidarr.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+          ports:
+            {{- range .Values.lidarr.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.lidarr.mediaTypes) | nindent 12 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/lidarr
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.lidarr.mediaTypes) | nindent 8 }}
