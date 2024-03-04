@@ -2,6 +2,9 @@ ip:
 
 domain:
 
+paths:
+  configRoot:
+
 letsencrypt:
   acme:
     email:
@@ -9,3 +12,6 @@ letsencrypt:
 cloudflare:
   email:
   apiToken:
+
+wireguard:
+  peers: # List of client names

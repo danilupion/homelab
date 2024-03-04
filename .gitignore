@@ -3,3 +3,6 @@
 
 # avoid committing values.yaml
 /values.yaml
+
+# avoid committing test output
+/output

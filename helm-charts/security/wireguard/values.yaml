@@ -1,0 +1,9 @@
+tz: Europe/Madrid
+wireguard:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: wireguard-port
+      port: 51820
+      targetPort: 51820
+      protocol: UDP

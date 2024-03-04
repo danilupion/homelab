@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wireguard-service
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "shared-ip-group-1"
+spec:
+  type: LoadBalancer
+  selector:
+    app: wireguard
+  ports:
+    {{- range .Values.wireguard.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}
