@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: transmission-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - transmission.{{ required "A value for domain is required" .Values.domain }}
+      secretName: transmission-tls-secret
+  rules:
+    - host: transmission.{{ required "A value for domain is required" .Values.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: transmission-service
+                port:
+                  number: {{ include "utils.portByName" (dict "ports" .Values.transmission.ports "portName" "http") }}

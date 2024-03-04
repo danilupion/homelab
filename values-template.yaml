@@ -4,6 +4,10 @@ domain:
 
 paths:
   configRoot:
+  mediaPaths:
+    downloads:
+    # - name: downloads
+    #   path: /mnt/Downloads
 
 letsencrypt:
   acme:
@@ -15,3 +19,10 @@ cloudflare:
 
 wireguard:
   peers: # List of client names
+
+transmission:
+  user:
+  password:
+  webHome: #Optional alternative web interface (needs to be manually installed inside transmission config folder and the value you gat is someting like /config/flood-for-transmission eg: https://github.com/johman10/flood-for-transmission)
+  mediaTypes:
+    - downloads
