@@ -141,3 +141,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: bazarr
+    chart: ./helm-charts/media-management/bazarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
