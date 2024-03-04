@@ -67,3 +67,5 @@ install-homelab.sh
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
 
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
+
+#### homarr (based on [Homarr](https://homarr.dev/))

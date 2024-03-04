@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homarr-app
+  labels:
+    app: homarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homarr
+  template:
+    metadata:
+      labels:
+        app: homarr
+    spec:
+      initContainers:
+        - name: adjust-permissions
+          image: busybox
+          command: ['sh', '-c', 'chown -R {{ required "A value for homarr.puid is required" .Values.homarr.puid }}:{{ required "A value for homarr.guid is required" .Values.homarr.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/homarr']
+          volumeMounts:
+            - name: config
+              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/homarr
+      containers:
+        - name: homarr
+          image: ghcr.io/ajnart/homarr:latest
+          # Not supported currently, runs as root
+          securityContext:
+           runAsUser: {{ required "A value for homarr.puid is required" .Values.homarr.puid }}
+           runAsGroup: {{ required "A value for homarr.guid is required" .Values.homarr.guid }}
+          env:
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+          ports:
+            {{- range .Values.homarr.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/data/configs
+              subPath: configs
+            - name: config
+              mountPath: /app/public/icons
+              subPath: icons
+            - name: config
+              mountPath: /data
+              subPath: data
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/homarr
+            type: DirectoryOrCreate

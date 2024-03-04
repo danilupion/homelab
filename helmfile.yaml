@@ -169,3 +169,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: homarr
+    chart: ./helm-charts/tools/homarr
+    namespace: tools
+    createNamespace: true
+    values:
+      - values.yaml
