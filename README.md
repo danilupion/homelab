@@ -34,6 +34,14 @@ install-homelab.sh
 - [cert-manager](https://cert-manager.io/): 1.14.3
 - [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.10.0
 
+## Update (configuration)
+
+After you have made changes in the configuration (charts or values.yaml) you can run the following file to update the homelab.
+
+```bash(from k8s cluster or remotely)
+update-homelab.sh
+```
+
 ## Helm Charts
 
 ### Networking
