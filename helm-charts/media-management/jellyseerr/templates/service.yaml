@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyseerr-service
+spec:
+  type: ClusterIP
+  selector:
+    app: jellyseerr
+  ports:
+    {{- range .Values.jellyseerr.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}

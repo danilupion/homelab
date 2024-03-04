@@ -65,3 +65,5 @@ install-homelab.sh
 #### lidarr (based on [Lidarr](https://lidarr.audio/))
 
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
+
+#### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
