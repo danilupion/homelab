@@ -16,14 +16,24 @@ install-k8s-cluster.sh
 
 ### Homelab
 
-Once k8s credentials are available use them (.kube config file) run the following file to install the homelab.
+Once k8s credentials are available use them (.kube config file) make a copy of values-template.yaml
+
+```bash(from k8s cluster)
+cp values-template.yaml values.yaml
+```
+
+And run the following file to install the homelab.
 
 ```bash(from k8s cluster or remotely)
 install-homelab.sh
 ```
 
 #### Versions
-- cilium: 1.14.7
-- metallb: 0.14.3
-- cert-manager: 1.14.3
-- ingress-nginx: 4.10.0
+- [cilium](https://cilium.io/): 1.14.7
+- [metallb](https://metallb.universe.tf/): 0.14.3
+- [cert-manager](https://cert-manager.io/): 1.14.3
+- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.10.0
+
+## Stacks
+
+### metallb-config (single node ip pool)

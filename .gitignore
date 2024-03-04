@@ -1,2 +1,5 @@
 # jetbrains
 .idea
+
+# avoid committing values.yaml
+values.yaml

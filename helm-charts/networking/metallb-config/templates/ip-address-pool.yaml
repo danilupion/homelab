@@ -1,0 +1,7 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: pool
+spec:
+  addresses:
+    - {{ required "A value for ip is required" .Values.ip }}/32

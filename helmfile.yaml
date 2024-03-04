@@ -53,3 +53,26 @@ releases:
       - extraArgs:
           - --dns01-recursive-nameservers-only
           - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
+
+  - name: metallb-config
+    labels:
+      app: metallb-config
+    chart: ./helm-charts/networking/metallb-config
+    namespace: metallb-system
+    createNamespace: true
+    needs:
+      - metallb-system/metallb
+    hooks:
+      - events: ["presync"]
+        showlogs: true
+        command: "sh"
+        args:
+          - "-c"
+          - |
+            echo "Waiting for the MetalLB webhook service to be ready..."
+            until kubectl wait --for=condition=available --timeout=60s deployment/metallb-controller -n metallb-system; do
+              echo "Waiting for webhook service..."
+              sleep 5
+            done
+    values:
+      - values.yaml
