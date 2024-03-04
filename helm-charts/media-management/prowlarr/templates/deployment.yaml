@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr-app
+  labels:
+    app: prowlarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prowlarr
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+        - name: prowlarr
+          image: lscr.io/linuxserver/prowlarr:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for prowlarr.puid is required" .Values.prowlarr.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for prowlarr.guid is required" .Values.prowlarr.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+          ports:
+            {{- range .Values.prowlarr.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/prowlarr

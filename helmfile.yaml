@@ -113,3 +113,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: prowlarr
+    chart: ./helm-charts/media-management/prowlarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
