@@ -63,3 +63,5 @@ install-homelab.sh
 #### bazarr (based on [Bazarr](https://www.bazarr.media/))
 
 #### lidarr (based on [Lidarr](https://lidarr.audio/))
+
+#### jellyfin (based on [Jellyfin](https://jellyfin.org/))
