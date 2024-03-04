@@ -1,5 +1,7 @@
 ip:
 
+domain:
+
 letsencrypt:
   acme:
     email:

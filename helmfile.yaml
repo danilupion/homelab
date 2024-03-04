@@ -97,3 +97,12 @@ releases:
             done
     values:
       - values.yaml
+
+  - name: custom-dns
+    labels:
+      app: custom-dns
+    chart: ./helm-charts/networking/custom-dns
+    namespace: networking
+    createNamespace: true
+    values:
+      - values.yaml

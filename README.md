@@ -36,6 +36,12 @@ install-homelab.sh
 
 ## Helm Charts
 
-### metallb-config (single node ip pool)
+### Networking
 
-### cert-manager-letsencrypt-cloudflare (Cluster issuer for Let's Encrypt with DNS-01 challenge using Cloudflare)
+#### metallb-config (single node ip pool)
+
+#### custom-dns (based on [CoreDNS](https://coredns.io/))
+
+### Certificates
+
+#### cert-manager-letsencrypt-cloudflare (Cluster issuer for Let's Encrypt with DNS-01 challenge using Cloudflare)
