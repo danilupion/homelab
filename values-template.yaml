@@ -8,6 +8,11 @@ paths:
     downloads:
     # - name: downloads
     #   path: /mnt/Downloads
+    movies:
+    # - name: movies1
+    #   path: /mnt/Movies1
+    # - name: movies2
+    #   path: /mnt/Movies2
 
 letsencrypt:
   acme:
@@ -25,4 +30,9 @@ transmission:
   password:
   webHome: #Optional alternative web interface (needs to be manually installed inside transmission config folder and the value you gat is someting like /config/flood-for-transmission eg: https://github.com/johman10/flood-for-transmission)
   mediaTypes:
+    - downloads
+
+radarr:
+  mediaTypes:
+    - movies
     - downloads

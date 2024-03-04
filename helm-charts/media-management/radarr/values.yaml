@@ -1,0 +1,8 @@
+tz: Europe/Madrid
+radarr:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 7878
+      targetPort: 7878
