@@ -57,3 +57,5 @@ install-homelab.sh
 #### transmission (based on [Transmission](https://transmissionbt.com/))
 
 #### radarr (based on [Radarr](https://radarr.video/))
+
+#### sonarr (based on [Sonarr](https://sonarr.tv/))

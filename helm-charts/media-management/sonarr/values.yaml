@@ -1,0 +1,8 @@
+tz: Europe/Madrid
+sonarr:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 8989
+      targetPort: 8989

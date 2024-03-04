@@ -134,3 +134,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: sonarr
+    chart: ./helm-charts/media-management/sonarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
