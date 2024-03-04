@@ -53,3 +53,5 @@ install-homelab.sh
 ### Media Management
 
 #### prowlarr (based on [Prowlarr](https://prowlarr.com))
+
+#### transmission (based on [Transmission](https://transmissionbt.com/))

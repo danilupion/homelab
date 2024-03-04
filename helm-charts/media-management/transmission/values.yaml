@@ -1,0 +1,16 @@
+tz: Europe/Madrid
+transmission:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 9091
+      targetPort: 9091
+    - name: torrent-tcp
+      port: 51413
+      targetPort: 51413
+    - name: torrent-udp
+      port: 51413
+      targetPort: 51413
+      protocol: UDP
+  webHome:
