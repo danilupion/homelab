@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyseerr-app
+  labels:
+    app: jellyseerr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyseerr
+  template:
+    metadata:
+      labels:
+        app: jellyseerr
+    spec:
+      initContainers:
+        - name: adjust-permissions
+          image: busybox
+          command: ['sh', '-c', 'chown -R {{ required "A value for jellyseerr.puid is required" .Values.jellyseerr.puid }}:{{ required "A value for jellyseerr.guid is required" .Values.jellyseerr.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyseerr']
+          volumeMounts:
+            - name: config
+              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyseerr
+      containers:
+        - name: jellyseerr
+          image: fallenbagel/jellyseerr:latest
+          securityContext:
+            runAsUser: {{ required "A value for jellyseerr.puid is required" .Values.jellyseerr.puid }}
+            runAsGroup: {{ required "A value for jellyseerr.guid is required" .Values.jellyseerr.guid }}
+          env:
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+          ports:
+            {{- range .Values.jellyseerr.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyseerr
+            type: DirectoryOrCreate
