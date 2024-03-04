@@ -16,6 +16,9 @@ paths:
     series:
     # - name: series1
     #   path: /mnt/Series
+    music:
+    # - name: music1
+    #   path: /mnt/Music
 
 letsencrypt:
   acme:
@@ -49,3 +52,8 @@ bazarr:
   mediaTypes:
     - movies
     - series
+
+lidarr:
+  mediaTypes:
+    - music
+    - downloads

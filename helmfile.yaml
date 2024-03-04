@@ -148,3 +148,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: lidarr
+    chart: ./helm-charts/media-management/lidarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
