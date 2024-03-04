@@ -1,0 +1,8 @@
+tz: Europe/Madrid
+homeassistant:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 8123
+      targetPort: 8123

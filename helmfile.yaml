@@ -197,3 +197,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: home-assistant
+    chart: ./helm-charts/tools/home-assistant
+    namespace: tools
+    createNamespace: true
+    values:
+      - values.yaml
