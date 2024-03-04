@@ -75,6 +75,15 @@ jellyfin:
     - music
     - downloads
 
+plex:
+  claim: # obtain in https://www.plex.tv/claim/
+  mediaTypes:
+    - movies
+    - series
+    - sports
+    - music
+    - downloads
+
 fileflows:
   mediaTypes:
     - disks
