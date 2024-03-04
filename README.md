@@ -16,7 +16,7 @@ install-k8s-cluster.sh
 
 ### Homelab
 
-Once k8s credentials are available use them (.kube config file) make a copy of values-template.yaml
+Once k8s credentials are available use them (.kube config file) make a copy of values-template.yaml and update the file with proper values.
 
 ```bash(from k8s cluster)
 cp values-template.yaml values.yaml
@@ -34,6 +34,8 @@ install-homelab.sh
 - [cert-manager](https://cert-manager.io/): 1.14.3
 - [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.10.0
 
-## Stacks
+## Helm Charts
 
 ### metallb-config (single node ip pool)
+
+### cert-manager-letsencrypt-cloudflare (Cluster issuer for Let's Encrypt with DNS-01 challenge using Cloudflare)

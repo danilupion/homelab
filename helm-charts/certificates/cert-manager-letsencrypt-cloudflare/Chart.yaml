@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cert-manager-letsencrypt-cloudflare
+description: A Helm chart for managing Cert-Manager ClusterIssuer with Let's Encrypt and Cloudflare (DNS01 challenges)
+type: application
+version: 0.1.0
+appVersion: 0.1.0

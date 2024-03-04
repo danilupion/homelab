@@ -76,3 +76,24 @@ releases:
             done
     values:
       - values.yaml
+
+  - name: cert-manager-letsencrypt-cloudflare
+    chart: ./helm-charts/certificates/cert-manager-letsencrypt-cloudflare
+    namespace: cert-manager
+    createNamespace: true
+    needs:
+      - cert-manager/cert-manager
+    hooks:
+      - events: [ "presync" ]
+        showlogs: true
+        command: "sh"
+        args:
+          - "-c"
+          - |
+            echo "Waiting for the MetalLB webhook service to be ready..."
+            until kubectl wait --for=condition=available --timeout=60s deployment/cert-manager deployment/cert-manager-cainjector deployment/cert-manager-webhook -n cert-manager; do
+              echo "Waiting for webhook service..."
+              sleep 5
+            done
+    values:
+      - values.yaml
