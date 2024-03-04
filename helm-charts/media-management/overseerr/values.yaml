@@ -1,0 +1,8 @@
+tz: Europe/Madrid
+overseerr:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 5056
+      targetPort: 5055

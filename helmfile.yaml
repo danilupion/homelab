@@ -163,6 +163,13 @@ releases:
     values:
       - values.yaml
 
+  - name: plex
+    chart: ./helm-charts/media-management/plex
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
+
   - name: jellyseerr
     chart: ./helm-charts/media-management/jellyseerr
     namespace: media-management
@@ -170,8 +177,8 @@ releases:
     values:
       - values.yaml
 
-  - name: plex
-    chart: ./helm-charts/media-management/plex
+  - name: overseerr
+    chart: ./helm-charts/media-management/overseerr
     namespace: media-management
     createNamespace: true
     values:

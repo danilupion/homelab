@@ -71,6 +71,8 @@ For native apps in the same network you will need to set Settings -> Network -> 
 
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
 
+#### overseerr (based on [Overseerr](https://overseerr.dev/))
+
 #### homarr (based on [Homarr](https://homarr.dev/))
 
 #### fileflows (based on [FileFlows](https://fileflows.com/))
