@@ -1,0 +1,16 @@
+tz: Europe/Madrid
+jellyfin:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 8096
+      targetPort: 8096
+    - name: discovery-1
+      port: 7359
+      targetPort: 7359
+      protocol: UDP
+    - name: discovery-2
+      port: 1900
+      targetPort: 1900
+      protocol: UDP

@@ -155,3 +155,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: jellyfin
+    chart: ./helm-charts/media-management/jellyfin
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml

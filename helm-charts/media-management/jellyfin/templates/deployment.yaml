@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin-app
+  labels:
+    app: jellyfin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+        - name: jellyfin
+          image: lscr.io/linuxserver/jellyfin:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for jellyfin.puid is required" .Values.jellyfin.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for jellyfin.guid is required" .Values.jellyfin.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+          ports:
+            {{- range .Values.transmission.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes) | nindent 12 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyfin
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes) | nindent 8 }}

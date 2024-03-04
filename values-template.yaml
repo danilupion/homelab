@@ -19,6 +19,9 @@ paths:
     music:
     # - name: music1
     #   path: /mnt/Music
+    sports:
+    # - name: sports1
+    #   path: /mnt/Sports
 
 letsencrypt:
   acme:
@@ -55,5 +58,13 @@ bazarr:
 
 lidarr:
   mediaTypes:
+    - music
+    - downloads
+
+jellyfin:
+  mediaTypes:
+    - movies
+    - series
+    - sports
     - music
     - downloads

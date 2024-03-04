@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-service
+spec:
+  type: ClusterIP
+  selector:
+    app: jellyfin
+  ports:
+    {{- range .Values.jellyfin.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}
