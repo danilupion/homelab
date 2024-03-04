@@ -55,3 +55,5 @@ install-homelab.sh
 #### prowlarr (based on [Prowlarr](https://prowlarr.com))
 
 #### transmission (based on [Transmission](https://transmissionbt.com/))
+
+#### radarr (based on [Radarr](https://radarr.video/))
