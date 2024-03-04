@@ -170,6 +170,13 @@ releases:
     values:
       - values.yaml
 
+  - name: plex
+    chart: ./helm-charts/media-management/plex
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
+
   - name: homarr
     chart: ./helm-charts/tools/homarr
     namespace: tools

@@ -66,6 +66,9 @@ install-homelab.sh
 
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
 
+#### plex (based on [Plex Media Server](https://www.plex.tv/))
+For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to soemthing lik `https://plex.yourdomain`
+
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
 
 #### homarr (based on [Homarr](https://homarr.dev/))

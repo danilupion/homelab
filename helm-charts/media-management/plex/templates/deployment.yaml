@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex-app
+  labels:
+    app: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      containers:
+        - name: plex
+          image: lscr.io/linuxserver/plex:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for plex.puid is required" .Values.plex.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for plex.guid is required" .Values.plex.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+            - name: VERSION
+              value: "docker"
+            - name: PLEX_CLAIM
+              value: {{.Values.plex.claim }}
+          ports:
+            {{- range .Values.plex.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.plex.mediaTypes) | nindent 12 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/plex
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.plex.mediaTypes) | nindent 8 }}

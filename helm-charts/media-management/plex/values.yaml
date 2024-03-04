@@ -1,0 +1,9 @@
+tz: Europe/Madrid
+plex:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 32400
+      targetPort: 32400
+  claim:
