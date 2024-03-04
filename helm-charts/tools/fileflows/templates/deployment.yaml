@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileflows-app
+  labels:
+    app: fileflows
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fileflows
+  template:
+    metadata:
+      labels:
+        app: fileflows
+    spec:
+      initContainers:
+        - name: adjust-permissions
+          image: busybox
+          command: ['sh', '-c', 'chown -R {{ required "A value for fileflows.puid is required" .Values.fileflows.puid }}:{{ required "A value for fileflows.guid is required" .Values.fileflows.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows']
+          volumeMounts:
+            - name: config
+              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows
+      containers:
+        - name: fileflows
+          image: revenz/fileflows:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for fileflows.puid is required" .Values.fileflows.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for fileflows.guid is required" .Values.fileflows.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+            - name: TempPathHost
+              value: "/temp"
+          ports:
+            {{- range .Values.fileflows.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/Data
+              subPath: data
+            - name: config
+              mountPath: /app/Logs
+              subPath: logs
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 12 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows
+            type: DirectoryOrCreate
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 8 }}

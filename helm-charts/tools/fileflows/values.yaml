@@ -1,0 +1,8 @@
+tz: Europe/Madrid
+fileflows:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
