@@ -1,0 +1,11 @@
+apiVersion: v2
+name: fileflows
+description: A Helm chart for setting up FielFlows
+type: application
+version: 0.1.0
+appVersion: 0.1.0
+
+dependencies:
+  - name: utils
+    version: 0.1.0
+    repository: "file://../../common/utils"

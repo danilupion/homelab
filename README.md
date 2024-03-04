@@ -69,3 +69,5 @@ install-homelab.sh
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
 
 #### homarr (based on [Homarr](https://homarr.dev/))
+
+#### fileflows (based on [FileFlows](https://fileflows.com/))

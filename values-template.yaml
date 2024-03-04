@@ -4,6 +4,7 @@ domain:
 
 paths:
   configRoot:
+  tempRoot:
   mediaPaths:
     downloads:
     # - name: downloads
@@ -22,6 +23,11 @@ paths:
     sports:
     # - name: sports1
     #   path: /mnt/Sports
+    disks:
+    #  - name: disk1
+    #    path: /mnt/disk1
+    #  - name: disk2
+    #    path: /mnt/disk2
 
 letsencrypt:
   acme:
@@ -68,3 +74,7 @@ jellyfin:
     - sports
     - music
     - downloads
+
+fileflows:
+  mediaTypes:
+    - disks

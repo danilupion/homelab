@@ -176,3 +176,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: fileflows
+    chart: ./helm-charts/tools/fileflows
+    namespace: tools
+    createNamespace: true
+    values:
+      - values.yaml
