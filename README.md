@@ -84,3 +84,13 @@ For native apps in the same network you will need to set Settings -> Network -> 
 #### homarr (based on [Homarr](https://homarr.dev/))
 
 #### fileflows (based on [FileFlows](https://fileflows.com/))
+
+#### home-assistant (based on [Home Assistant](https://www.home-assistant.io/))
+
+The following will be needed in the configuration.yaml file for Home Assistant to work with the ingress-nginx ([more info](https://www.home-assistant.io/integrations/http#reverse-proxies)):
+```yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 10.0.0.0/8 # Cilium's default CIDR
+```
