@@ -13,6 +13,9 @@ paths:
     #   path: /mnt/Movies1
     # - name: movies2
     #   path: /mnt/Movies2
+    series:
+    # - name: series1
+    #   path: /mnt/Series
 
 letsencrypt:
   acme:
@@ -35,4 +38,9 @@ transmission:
 radarr:
   mediaTypes:
     - movies
+    - downloads
+
+sonarr:
+  mediaTypes:
+    - series
     - downloads

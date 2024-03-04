@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr-service
+spec:
+  type: ClusterIP
+  selector:
+    app: sonarr
+  ports:
+    {{- range .Values.sonarr.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}
