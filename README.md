@@ -45,3 +45,7 @@ install-homelab.sh
 ### Certificates
 
 #### cert-manager-letsencrypt-cloudflare (Cluster issuer for Let's Encrypt with DNS-01 challenge using Cloudflare)
+
+### Security
+
+#### wireguard (based on [WireGuard](https://www.wireguard.com/))

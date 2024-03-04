@@ -106,3 +106,10 @@ releases:
     createNamespace: true
     values:
       - values.yaml
+
+  - name: wireguard
+    chart: ./helm-charts/security/wireguard
+    namespace: security
+    createNamespace: true
+    values:
+      - values.yaml
