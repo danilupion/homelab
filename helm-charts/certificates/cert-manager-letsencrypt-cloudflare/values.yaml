@@ -1,0 +1,7 @@
+letsencrypt:
+  acme:
+    email: danilupion@gmail.com
+
+cloudflare:
+  email: danilupion@gmail.com
+  apiToken: bGOqeZQfL_FuCY3T7duhwi0grDxOyViKoOPs-u0p
