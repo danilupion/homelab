@@ -128,6 +128,13 @@ releases:
     values:
       - values.yaml
 
+  - name: sabnzbd
+    chart: ./helm-charts/media-management/sabnzbd
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
+
   - name: radarr
     chart: ./helm-charts/media-management/radarr
     namespace: media-management

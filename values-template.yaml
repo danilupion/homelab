@@ -47,6 +47,10 @@ transmission:
   mediaTypes:
     - downloads
 
+sabnzbd:
+  mediaTypes:
+    - downloads
+
 radarr:
   mediaTypes:
     - movies

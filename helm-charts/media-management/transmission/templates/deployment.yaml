@@ -39,9 +39,6 @@ spec:
             - name: config
               mountPath: /config
             {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.transmission.mediaTypes) | nindent 12 }}
-            - name: downloads
-              mountPath: /watch
-              subPath: watch
       volumes:
         - name: config
           hostPath:
