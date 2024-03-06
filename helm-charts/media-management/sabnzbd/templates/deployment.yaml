@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabnzbd-app
+  labels:
+    app: sabnzbd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sabnzbd
+  template:
+    metadata:
+      labels:
+        app: sabnzbd
+    spec:
+      containers:
+        - name: sabnzbd
+          image: lscr.io/linuxserver/sabnzbd:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for sabnzbd.puid is required" .Values.sabnzbd.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for sabnzbd.guid is required" .Values.sabnzbd.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+          ports:
+            {{- range .Values.sabnzbd.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.sabnzbd.mediaTypes) | nindent 12 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/sabnzbd
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.sabnzbd.mediaTypes) | nindent 8 }}

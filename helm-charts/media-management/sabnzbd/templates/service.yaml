@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sabnzbd-service
+spec:
+  type: ClusterIP
+  selector:
+    app: sabnzbd
+  ports:
+    {{- range .Values.sabnzbd.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}

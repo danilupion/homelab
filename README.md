@@ -64,6 +64,9 @@ update-homelab.sh
 
 #### transmission (based on [Transmission](https://transmissionbt.com/))
 
+#### sabnzbd (based on [SABnzbd](https://sabnzbd.org/))
+You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname-check.html
+
 #### radarr (based on [Radarr](https://radarr.video/))
 
 #### sonarr (based on [Sonarr](https://sonarr.tv/))
@@ -94,3 +97,6 @@ http:
   trusted_proxies:
     - 10.0.0.0/8 # Cilium's default CIDR
 ```
+
+Probably you also want to install hacs (Home Assistant Community Store) to get more integrations and plugins.
+https://hacs.xyz/
