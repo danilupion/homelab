@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nzbhydra2-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - nzbhydra2.{{ required "A value for domain is required" .Values.domain }}
+      secretName: nzbhydra2-tls-secret
+  rules:
+    - host: nzbhydra2.{{ required "A value for domain is required" .Values.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nzbhydra2-service
+                port:
+                  number: {{ include "utils.portByName" (dict "ports" .Values.nzbhydra2.ports "portName" "http") }}
