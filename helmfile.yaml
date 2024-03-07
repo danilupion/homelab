@@ -121,6 +121,13 @@ releases:
     values:
       - values.yaml
 
+  - name: nzbhydra2
+    chart: ./helm-charts/media-management/nzbhydra2
+    namespace: media-management
+    createNamespace: true
+    values:
+      - values.yaml
+
   - name: transmission
     chart: ./helm-charts/media-management/transmission
     namespace: media-management

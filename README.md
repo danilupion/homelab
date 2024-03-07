@@ -62,6 +62,8 @@ update-homelab.sh
 
 #### prowlarr (based on [Prowlarr](https://prowlarr.com))
 
+#### nzbhydra2 (based on [NZBHydra2](https://github.com/theotherp/nzbhydra2))
+
 #### transmission (based on [Transmission](https://transmissionbt.com/))
 
 #### sabnzbd (based on [SABnzbd](https://sabnzbd.org/))

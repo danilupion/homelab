@@ -1,0 +1,8 @@
+tz: Europe/Madrid
+nzbhydra2:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 5076
+      targetPort: 5076
