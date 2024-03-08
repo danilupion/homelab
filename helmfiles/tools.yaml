@@ -1,0 +1,21 @@
+releases:
+  - name: homarr
+    chart: ../helm-charts/tools/homarr
+    namespace: tools
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: fileflows
+    chart: ../helm-charts/tools/fileflows
+    namespace: tools
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: home-assistant
+    chart: ../helm-charts/tools/home-assistant
+    namespace: tools
+    createNamespace: true
+    values:
+      - ../values.yaml
