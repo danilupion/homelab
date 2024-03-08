@@ -1,0 +1,14 @@
+releases:
+  - name: prowlarr
+    chart: ../helm-charts/media-indexing/prowlarr
+    namespace: media-indexing
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: nzbhydra2
+    chart: ../helm-charts/media-indexing/nzbhydra2
+    namespace: media-indexing
+    createNamespace: true
+    values:
+      - ../values.yaml

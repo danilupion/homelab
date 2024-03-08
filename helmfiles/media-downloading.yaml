@@ -1,0 +1,14 @@
+releases:
+  - name: transmission
+    chart: ../helm-charts/media-downloading/transmission
+    namespace: media-downloading
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: sabnzbd
+    chart: ../helm-charts/media-downloading/sabnzbd
+    namespace: media-downloading
+    createNamespace: true
+    values:
+      - ../values.yaml

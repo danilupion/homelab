@@ -1,0 +1,108 @@
+repositories:
+  - name: cilium
+    url: https://helm.cilium.io/
+  - name: metallb
+    url: https://metallb.github.io/metallb
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: jetstack
+    url: https://charts.jetstack.io
+
+releases:
+  - name: cilium
+    labels:
+      app: cilium
+    chart: cilium/cilium
+    version: 1.14.7
+    namespace: cilium
+    createNamespace: true
+    values:
+      - operator:
+          replicas: 1
+
+  - name: metallb
+    labels:
+      app: metallb
+    chart: metallb/metallb
+    version: 0.14.3
+    namespace: metallb-system
+    createNamespace: true
+
+  - name: ingress-nginx
+    labels:
+      app: ingress-nginx
+    chart: ingress-nginx/ingress-nginx
+    version: 4.10.0
+    namespace: ingress-nginx
+    createNamespace: true
+    values:
+      - controller:
+          service:
+            annotations:
+              metallb.universe.tf/allow-shared-ip: "shared-ip-group-1"
+
+  - name: cert-manager
+    labels:
+      app: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.14.3
+    namespace: cert-manager
+    createNamespace: true
+    values:
+      - installCRDs: true
+      - extraArgs:
+          - --dns01-recursive-nameservers-only
+          - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
+
+  - name: metallb-config
+    labels:
+      app: metallb-config
+    chart: ../helm-charts/networking/metallb-config
+    namespace: metallb-system
+    createNamespace: true
+    needs:
+      - metallb-system/metallb
+    hooks:
+      - events: ["presync"]
+        showlogs: true
+        command: "sh"
+        args:
+          - "-c"
+          - |
+            echo "Waiting for the MetalLB webhook service to be ready..."
+            until kubectl wait --for=condition=available --timeout=60s deployment/metallb-controller -n metallb-system; do
+              echo "Waiting for webhook service..."
+              sleep 5
+            done
+    values:
+      - ../values.yaml
+
+  - name: cert-manager-letsencrypt-cloudflare
+    chart: ../helm-charts/certificates/cert-manager-letsencrypt-cloudflare
+    namespace: cert-manager
+    createNamespace: true
+    needs:
+      - cert-manager/cert-manager
+    hooks:
+      - events: [ "presync" ]
+        showlogs: true
+        command: "sh"
+        args:
+          - "-c"
+          - |
+            echo "Waiting for the MetalLB webhook service to be ready..."
+            until kubectl wait --for=condition=available --timeout=60s deployment/cert-manager deployment/cert-manager-cainjector deployment/cert-manager-webhook -n cert-manager; do
+              echo "Waiting for webhook service..."
+              sleep 5
+            done
+    values:
+      - ../values.yaml
+
+  - name: custom-dns
+    labels:
+      app: custom-dns
+    chart: ../helm-charts/networking/custom-dns
+    namespace: networking
+    createNamespace: true
+    values:
+      - ../values.yaml

@@ -1,0 +1,42 @@
+releases:
+  - name: radarr
+    chart: ../helm-charts/media-management/radarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: sonarr
+    chart: ../helm-charts/media-management/sonarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: lidarr
+    chart: ../helm-charts/media-management/lidarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: bazarr
+    chart: ../helm-charts/media-management/bazarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: jellyseerr
+    chart: ../helm-charts/media-management/jellyseerr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: overseerr
+    chart: ../helm-charts/media-management/overseerr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml

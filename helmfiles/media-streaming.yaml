@@ -1,0 +1,16 @@
+releases:
+  - name: jellyfin
+    chart: ../helm-charts/media-streaming/jellyfin
+    namespace: media-streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: plex
+    chart: ../helm-charts/media-streaming/plex
+    namespace: media-streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+

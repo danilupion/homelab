@@ -1,0 +1,7 @@
+releases:
+  - name: wireguard
+    chart: ../helm-charts/security/wireguard
+    namespace: security
+    createNamespace: true
+    values:
+      - ../values.yaml
