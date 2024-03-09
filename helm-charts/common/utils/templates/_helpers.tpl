@@ -57,3 +57,61 @@ Usage:
 {{ end }}
 {{- end -}}
 
+{{/*
+Generate volumeMounts for a specified service, including language-specific mounts
+Usage:
+  include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages)
+*/}}
+{{- define "utils.volumeMounts-localized" -}}
+{{- $mediaPaths := .mediaPaths -}}
+{{- $mediaTypes := .mediaTypes -}}
+{{- $extraMediaLanguages := .extraMediaLanguages | default (list) -}}
+{{- range $mediaType := $mediaTypes -}}
+{{- range (index $mediaPaths $mediaType) -}}
+{{- $localize := .localize -}}
+{{- $name := .name -}}
+- name: {{ .name }}
+  mountPath: /{{ .name }}
+{{ "\n" }}
+{{- range $language := $extraMediaLanguages -}}
+{{- if $localize -}}
+- name: {{ $name }}-{{ $language }}
+  mountPath: /{{ $name }}-{{ $language }}
+{{ "\n" }}
+{{- end -}}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+
+{{/*
+Generate volumes for a specified service, including language-specific volumes
+Usage:
+  include "utils.volumes" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages)
+*/}}
+{{- define "utils.volumes-localized" -}}
+{{- $mediaPaths := .mediaPaths -}}
+{{- $mediaTypes := .mediaTypes -}}
+{{- $extraMediaLanguages := .extraMediaLanguages | default (list) -}}
+{{- range $mediaType := $mediaTypes -}}
+{{- range (index $mediaPaths $mediaType) -}}
+{{- $localize := .localize -}}
+{{- $name := .name -}}
+{{- $path := .path -}}
+- name: {{ .name }}
+  hostPath:
+    path: {{ $path }}
+{{ "\n" }}
+{{- range $language := $extraMediaLanguages -}}
+{{- if $localize -}}
+- name: {{ $name }}-{{ $language }}
+  hostPath:
+    path: {{ $path }}-{{ $language }}
+{{ "\n" }}
+{{- end -}}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}
+

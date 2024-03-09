@@ -25,16 +25,16 @@ spec:
             - name: TZ
               value: {{ required "A value for tz is required" .Values.tz | quote }}
           ports:
-            {{- range .Values.transmission.ports }}
+            {{- range .Values.jellyfin.ports }}
             - containerPort: {{ .port }}
               protocol: {{ default "TCP" .protocol }}
             {{- end }}
           volumeMounts:
             - name: config
               mountPath: /config
-            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes) | nindent 12 }}
+            {{- include "utils.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages ) | nindent 12 }}
       volumes:
         - name: config
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyfin
-        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes) | nindent 8 }}
+        {{- include "utils.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages) | nindent 8 }}
