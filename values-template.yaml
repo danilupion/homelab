@@ -81,6 +81,8 @@ lidarr:
     - downloads
 
 jellyfin:
+# extraMediaLanguages: # Optional list of language suffixes to mount media volumes
+#   - es
   mediaTypes:
     - movies
     - series
@@ -90,6 +92,8 @@ jellyfin:
 
 plex:
   claim: # obtain in https://www.plex.tv/claim/
+# extraMediaLanguages: # Optional list of language suffixes to mount media volumes
+#   - es
   mediaTypes:
     - movies
     - series

@@ -36,9 +36,10 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.plex.mediaTypes) | nindent 12 }}
+            {{- include "utils.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.plex.mediaTypes "extraMediaLanguages" .Values.plex.extraMediaLanguages ) | nindent 12 }}
       volumes:
         - name: config
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/plex
-        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.plex.mediaTypes) | nindent 8 }}
+        {{- include "utils.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.plex.mediaTypes "extraMediaLanguages" .Values.plex.extraMediaLanguages) | nindent 8 }}
+
