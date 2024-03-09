@@ -1,45 +1,22 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: jellyseerr-app
-  labels:
-    app: jellyseerr
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: jellyseerr
-  template:
-    metadata:
-      labels:
-        app: jellyseerr
-    spec:
-      initContainers:
-        - name: adjust-permissions
-          image: busybox
-          command: ['sh', '-c', 'chown -R {{ required "A value for jellyseerr.puid is required" .Values.jellyseerr.puid }}:{{ required "A value for jellyseerr.guid is required" .Values.jellyseerr.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyseerr']
-          volumeMounts:
-            - name: config
-              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyseerr
-      containers:
-        - name: jellyseerr
-          image: fallenbagel/jellyseerr:latest
-          securityContext:
-            runAsUser: {{ required "A value for jellyseerr.puid is required" .Values.jellyseerr.puid }}
-            runAsGroup: {{ required "A value for jellyseerr.guid is required" .Values.jellyseerr.guid }}
-          env:
-            - name: TZ
-              value: {{ required "A value for tz is required" .Values.tz | quote }}
-          ports:
-            {{- range .Values.jellyseerr.ports }}
-            - containerPort: {{ .port }}
-              protocol: {{ default "TCP" .protocol }}
-            {{- end }}
-          volumeMounts:
-            - name: config
-              mountPath: /app/config
-      volumes:
-        - name: config
-          hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/jellyseerr
-            type: DirectoryOrCreate
+{{- if .Values.jellyseerr.defaultEnabled }}
+  {{- $context := merge (dict "language" nil) (deepCopy .) }}
+  {{- include "jellyseerr.deployment" $context | nindent 0 }}
+{{- end }}
+
+{{- /* Ensure there's a separation between the defaultEnabled deployment and the language-specific deployments */}}
+{{- if and .Values.jellyseerr.defaultEnabled (gt (len .Values.jellyseerr.languages) 0) }}
+---
+{{- end }}
+
+{{- if and .Values.jellyseerr.languages (gt (len .Values.jellyseerr.languages) 0) }}
+  {{/* Capture the original context outside of the range */}}
+  {{- $rootContext := . }}
+  {{- range $index, $lang := .Values.jellyseerr.languages }}
+  {{- if $index }}
+---
+  {{- end }}
+    {{/* Now merge using the captured root context, not the loop item context */}}
+    {{- $context := merge (dict "language" $lang) (deepCopy $rootContext) }}
+    {{- include "jellyseerr.deployment" $context | nindent 0 }}
+  {{- end }}
+{{- end }}

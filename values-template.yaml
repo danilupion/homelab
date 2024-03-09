@@ -97,6 +97,11 @@ plex:
     - music
     - downloads
 
+jellyseerr:
+  defaultEnabled: true
+# languages: # Optional list of languages to create a jellyseerr instance for each language (jellyseerr-es for example)
+#   - es
+
 fileflows:
   mediaTypes:
     - disks

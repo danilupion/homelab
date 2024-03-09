@@ -1,15 +1,22 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: jellyseerr-service
-spec:
-  type: ClusterIP
-  selector:
-    app: jellyseerr
-  ports:
-    {{- range .Values.jellyseerr.ports }}
-    - name: {{ .name }}
-      port: {{ .port }}
-      targetPort: {{ .targetPort }}
-      protocol: {{ default "TCP" .protocol }}
-    {{- end }}
+{{- if .Values.jellyseerr.defaultEnabled }}
+  {{- $context := merge (dict "language" nil) (deepCopy .) }}
+  {{- include "jellyseerr.service" $context | nindent 0 }}
+{{- end }}
+
+{{- /* Ensure there's a separation between the defaultEnabled service and the language-specific service */}}
+{{- if and .Values.jellyseerr.defaultEnabled (gt (len .Values.jellyseerr.languages) 0) }}
+---
+{{- end }}
+
+{{- if and .Values.jellyseerr.languages (gt (len .Values.jellyseerr.languages) 0) }}
+  {{/* Capture the original context outside of the range */}}
+  {{- $rootContext := . }}
+  {{- range $index, $lang := .Values.jellyseerr.languages }}
+  {{- if $index }}
+---
+  {{- end }}
+    {{/* Now merge using the captured root context, not the loop item context */}}
+    {{- $context := merge (dict "language" $lang) (deepCopy $rootContext) }}
+    {{- include "jellyseerr.service" $context | nindent 0 }}
+  {{- end }}
+{{- end }}
