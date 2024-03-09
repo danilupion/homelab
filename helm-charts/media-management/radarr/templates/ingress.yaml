@@ -1,25 +1,22 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: radarr-ingress
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  ingressClassName: nginx
-  tls:
-    - hosts:
-        - radarr.{{ required "A value for domain is required" .Values.domain }}
-      secretName: radarr-tls-secret
-  rules:
-    - host: radarr.{{ required "A value for domain is required" .Values.domain }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: radarr-service
-                port:
-                  number: {{ include "utils.portByName" (dict "ports" .Values.radarr.ports "portName" "http") }}
+{{- if .Values.radarr.defaultEnabled }}
+  {{- $context := merge (dict "language" nil) (deepCopy .) }}
+  {{- include "radarr.ingress" $context | nindent 0 }}
+{{- end }}
+
+{{- /* Ensure there's a separation between the defaultEnabled ingress and the language-specific ingress */}}
+{{- if and .Values.radarr.defaultEnabled (gt (len .Values.radarr.languages) 0) }}
+---
+{{- end }}
+
+{{- if and .Values.radarr.languages (gt (len .Values.radarr.languages) 0) }}
+  {{/* Capture the original context outside of the range */}}
+  {{- $rootContext := . }}
+  {{- range $index, $lang := .Values.radarr.languages }}
+  {{- if $index }}
+---
+  {{- end }}
+    {{/* Now merge using the captured root context, not the loop item context */}}
+    {{- $context := merge (dict "language" $lang) (deepCopy $rootContext) }}
+    {{- include "radarr.ingress" $context | nindent 0 }}
+  {{- end }}
+{{- end }}

@@ -12,11 +12,14 @@ paths:
     movies:
     # - name: movies1
     #   path: /mnt/Movies1
+    #   localize: true
     # - name: movies2
     #   path: /mnt/Movies2
+    #   localize: true
     series:
     # - name: series1
     #   path: /mnt/Series
+    #   localize: true
     music:
     # - name: music1
     #   path: /mnt/Music
@@ -52,11 +55,17 @@ sabnzbd:
     - downloads
 
 radarr:
+  defaultEnabled: true
+# languages: # Optional list of languages to create a Radarr instance for each language (radar-es for example)
+#   - es
   mediaTypes:
     - movies
     - downloads
 
 sonarr:
+  defaultEnabled: true
+# languages: # Optional list of languages to create a Sonarr instance for each language (radar-es for example)
+#   - es
   mediaTypes:
     - series
     - downloads
