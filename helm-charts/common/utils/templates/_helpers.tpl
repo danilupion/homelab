@@ -46,12 +46,14 @@ Usage:
 {{- define "utils.volumes" -}}
 {{- $mediaPaths := .mediaPaths -}}
 {{- $mediaTypes := .mediaTypes -}}
+{{- $suffix := .suffix | default "" -}}
 {{- range $mediaTypes -}}
 {{- $mediaType := . -}}
 {{- range (index $mediaPaths $mediaType) -}}
 - name: {{ .name }}
   hostPath:
-    path: {{ .path }}
+    path: {{ if and .localize (ne $suffix "") }}{{ .path }}-{{ $suffix }}{{ else }}{{ .path }}{{ end }}
 {{ end }}
 {{ end }}
 {{- end -}}
+
