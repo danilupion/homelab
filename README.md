@@ -82,6 +82,8 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 #### plex (based on [Plex Media Server](https://www.plex.tv/))
 For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to soemthing lik `https://plex.yourdomain`
 
+#### emby (based on [Emby](https://emby.media/))
+
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
 
 #### overseerr (based on [Overseerr](https://overseerr.dev/))

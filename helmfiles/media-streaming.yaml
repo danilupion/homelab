@@ -13,4 +13,9 @@ releases:
     values:
       - ../values.yaml
 
-
+  - name: emby
+    chart: ../helm-charts/media-streaming/emby
+    namespace: media-streaming
+    createNamespace: true
+    values:
+      - ../values.yaml

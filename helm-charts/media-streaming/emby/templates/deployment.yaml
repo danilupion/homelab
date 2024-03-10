@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emby-app
+  labels:
+    app: emby
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emby
+  template:
+    metadata:
+      labels:
+        app: emby
+    spec:
+      containers:
+        - name: emby
+          image: lscr.io/linuxserver/emby:latest
+          env:
+            - name: PUID
+              value: {{ required "A value for emby.puid is required" .Values.emby.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for emby.guid is required" .Values.emby.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+            - name: VERSION
+              value: "docker"
+          ports:
+            {{- range .Values.emby.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            {{- include "utils.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.emby.mediaTypes "extraMediaLanguages" .Values.emby.extraMediaLanguages ) | nindent 12 }}
+      volumes:
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/emby
+        {{- include "utils.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.emby.mediaTypes "extraMediaLanguages" .Values.emby.extraMediaLanguages) | nindent 8 }}
+
