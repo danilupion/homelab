@@ -101,6 +101,16 @@ plex:
     - music
     - downloads
 
+emby:
+  # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
+  #   - es
+  mediaTypes:
+    - movies
+    - series
+    - sports
+    - music
+    - downloads
+
 jellyseerr:
   defaultEnabled: true
 # languages: # Optional list of languages to create a jellyseerr instance for each language (jellyseerr-es for example)
