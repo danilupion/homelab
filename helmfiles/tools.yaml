@@ -19,3 +19,10 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
+
+  - name: filebrowser
+    chart: ../helm-charts/tools/filebrowser
+    namespace: tools
+    createNamespace: true
+    values:
+      - ../values.yaml

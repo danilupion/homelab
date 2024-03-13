@@ -15,7 +15,7 @@ spec:
         app: fileflows
     spec:
       initContainers:
-        - name: adjust-permissions
+        - name: fileflows-adjust-permissions
           image: busybox
           command: ['sh', '-c', 'chown -R {{ required "A value for fileflows.puid is required" .Values.fileflows.puid }}:{{ required "A value for fileflows.guid is required" .Values.fileflows.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows']
           volumeMounts:

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebrowser-app
+  labels:
+    app: filebrowser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filebrowser
+  template:
+    metadata:
+      labels:
+        app: filebrowser
+    spec:
+      initContainers:
+        - name: filebrowser-adjust-permissions
+          image: busybox
+          command: ['sh', '-c', 'chown -R {{ required "A value for filebrowser.puid is required" .Values.filebrowser.puid }}:{{ required "A value for filebrowser.guid is required" .Values.filebrowser.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/filebrowser']
+          volumeMounts:
+            - name: config
+              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/filebrowser
+      containers:
+        - name: filebrowser
+          image: filebrowser/filebrowser:s6
+          env:
+            - name: PUID
+              value: {{ required "A value for filebrowser.puid is required" .Values.filebrowser.puid | quote }}
+            - name: PGID
+              value: {{ required "A value for filebrowser.guid is required" .Values.filebrowser.guid | quote }}
+            - name: TZ
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
+            - name: TempPathHost
+              value: "/temp"
+          ports:
+            {{- range .Values.filebrowser.ports }}
+            - containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /config/settings.json
+              subPath: settings.json
+            - name: config
+              mountPath: /database/filebrowser.db
+              subPath: data/filebrowser.db
+            - name: root
+              mountPath: /srv
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.filebrowser.mediaTypes) | nindent 12 }}
+      volumes:
+        - name: root
+          hostPath:
+            path: /
+        - name: config
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/filebrowser
+            type: DirectoryOrCreate
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.filebrowser.mediaTypes) | nindent 8 }}
