@@ -1,6 +1,6 @@
 apiVersion: v2
-name: fileflows
-description: A Helm chart for setting up FileFlows
+name: filebrowser
+description: A Helm chart for setting up FileBrowser
 type: application
 version: 0.1.0
 appVersion: 0.1.0
