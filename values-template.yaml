@@ -88,6 +88,10 @@ readarr:
     - books
     - downloads
 
+calibre:
+  mediaTypes:
+    - books
+
 jellyfin:
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
 #   - es

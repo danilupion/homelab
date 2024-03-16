@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: calibre-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - calibre.{{ required "A value for domain is required" .Values.domain }}
+        - calibre-api.{{ required "A value for domain is required" .Values.domain }}
+      secretName: calibre-tls-secret
+  rules:
+    - host: calibre.{{ required "A value for domain is required" .Values.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: calibre-service
+                port:
+                  number: {{ include "utils.portByName" (dict "ports" .Values.calibre.ports "portName" "http") }}
+    - host: calibre-api.{{ required "A value for domain is required" .Values.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: calibre-service
+                port:
+                  number: {{ include "utils.portByName" (dict "ports" .Values.calibre.ports "portName" "http-api") }}

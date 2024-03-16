@@ -79,6 +79,8 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 
 #### readarr (based on [Readarr](https://readarr.com/))
 
+#### calibre (based on [Calibre](https://calibre-ebook.com/))
+
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
 
 #### plex (based on [Plex Media Server](https://www.plex.tv/))
