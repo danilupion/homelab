@@ -13,6 +13,13 @@ releases:
     values:
       - ../values.yaml
 
+  - name: calibre
+    chart: ../helm-charts/media-management/calibre
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
   - name: lidarr
     chart: ../helm-charts/media-management/lidarr
     namespace: media-management
