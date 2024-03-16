@@ -77,6 +77,8 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 
 #### lidarr (based on [Lidarr](https://lidarr.audio/))
 
+#### readarr (based on [Readarr](https://readarr.com/))
+
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
 
 #### plex (based on [Plex Media Server](https://www.plex.tv/))

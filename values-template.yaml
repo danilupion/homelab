@@ -26,6 +26,9 @@ paths:
     sports:
     # - name: sports1
     #   path: /mnt/Sports
+    books:
+    # - name: books1
+    #   path: /mnt/Books
     disks:
     #  - name: disk1
     #    path: /mnt/disk1
@@ -78,6 +81,11 @@ bazarr:
 lidarr:
   mediaTypes:
     - music
+    - downloads
+
+readarr:
+  mediaTypes:
+    - books
     - downloads
 
 jellyfin:

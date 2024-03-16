@@ -27,6 +27,13 @@ releases:
     values:
       - ../values.yaml
 
+  - name: readarr
+    chart: ../helm-charts/media-management/readarr
+    namespace: media-management
+    createNamespace: true
+    values:
+      - ../values.yaml
+
   - name: jellyseerr
     chart: ../helm-charts/media-management/jellyseerr
     namespace: media-management
