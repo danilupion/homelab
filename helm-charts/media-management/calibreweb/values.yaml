@@ -1,0 +1,9 @@
+tz: Europe/Madrid
+calibreweb:
+  puid: 1000
+  guid: 1000
+  ports:
+    - name: http
+      port: 8083
+      targetPort: 8083
+  uploadSize: 128m
