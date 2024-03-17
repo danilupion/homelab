@@ -81,6 +81,8 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 
 #### calibre (based on [Calibre](https://calibre-ebook.com/))
 
+#### calibre-web (based on [Calibre-Web](https://github.com/janeczku/calibre-web))
+
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
 
 #### plex (based on [Plex Media Server](https://www.plex.tv/))

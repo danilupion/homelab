@@ -92,6 +92,10 @@ calibre:
   mediaTypes:
     - books
 
+calibreweb:
+  mediaTypes:
+    - books
+
 jellyfin:
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
 #   - es
