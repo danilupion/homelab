@@ -1,6 +1,9 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
 releases:
   - name: prowlarr
     chart: ../helm-charts/media-indexing/prowlarr
+    installed: {{ and (index $values.features "media-indexing") $values.prowlarr.enabled }}
     namespace: media-indexing
     createNamespace: true
     values:
@@ -8,6 +11,7 @@ releases:
 
   - name: nzbhydra2
     chart: ../helm-charts/media-indexing/nzbhydra2
+    installed: {{ and (index $values.features "media-indexing") $values.nzbhydra2.enabled }}
     namespace: media-indexing
     createNamespace: true
     values:

@@ -34,6 +34,13 @@ paths:
     #    path: /mnt/disk1
     #  - name: disk2
     #    path: /mnt/disk2
+features:
+  downloading: true
+  indexing: true
+  media-management: true
+  media-streaming: true
+  security: true
+  tools: true
 
 letsencrypt:
   acme:
@@ -44,9 +51,11 @@ cloudflare:
   apiToken:
 
 wireguard:
+  enabled: false
   peers: # List of client names
 
 transmission:
+  enabled: true
   user:
   password:
   webHome: #Optional alternative web interface (needs to be manually installed inside transmission config folder and the value you gat is someting like /config/flood-for-transmission eg: https://github.com/johman10/flood-for-transmission)
@@ -54,10 +63,18 @@ transmission:
     - downloads
 
 sabnzbd:
+  enabled: false
   mediaTypes:
     - downloads
 
+prowlarr:
+  enabled: true
+
+nzbhydra2:
+  enabled: true
+
 radarr:
+  enabled: true
   defaultEnabled: true
 # languages: # Optional list of languages to create a Radarr instance for each language (radar-es for example)
 #   - es
@@ -66,6 +83,7 @@ radarr:
     - downloads
 
 sonarr:
+  enabled: true
   defaultEnabled: true
 # languages: # Optional list of languages to create a Sonarr instance for each language (radar-es for example)
 #   - es
@@ -74,29 +92,44 @@ sonarr:
     - downloads
 
 bazarr:
+  enabled: true
   mediaTypes:
     - movies
     - series
 
 lidarr:
+  enabled: true
   mediaTypes:
     - music
     - downloads
 
 readarr:
+  enabled: true
   mediaTypes:
     - books
     - downloads
 
 calibre:
+  enabled: true
   mediaTypes:
     - books
 
 calibreweb:
+  enabled: true
   mediaTypes:
     - books
 
+jellyseerr:
+  enabled: true
+  defaultEnabled: true
+# languages: # Optional list of languages to create a jellyseerr instance for each language (jellyseerr-es for example)
+#   - es
+
+overseerr:
+  enabled: true
+
 jellyfin:
+  enabled: true
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
 #   - es
   mediaTypes:
@@ -107,6 +140,7 @@ jellyfin:
     - downloads
 
 plex:
+  enabled: true
   claim: # obtain in https://www.plex.tv/claim/
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
 #   - es
@@ -118,6 +152,7 @@ plex:
     - downloads
 
 emby:
+  enabled: false
   # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
   #   - es
   mediaTypes:
@@ -127,11 +162,18 @@ emby:
     - music
     - downloads
 
-jellyseerr:
-  defaultEnabled: true
-# languages: # Optional list of languages to create a jellyseerr instance for each language (jellyseerr-es for example)
-#   - es
+homarr:
+  enabled: true
+
+homeassistant:
+  enabled: true
 
 fileflows:
+  enabled: true
+  mediaTypes:
+    - disks
+
+filebrowser:
+  enabled: true
   mediaTypes:
     - disks

@@ -1,6 +1,9 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
 releases:
   - name: radarr
     chart: ../helm-charts/media-management/radarr
+    installed: {{ and (index $values.features "media-management") $values.radarr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -8,6 +11,7 @@ releases:
 
   - name: sonarr
     chart: ../helm-charts/media-management/sonarr
+    installed: {{ and (index $values.features "media-management") $values.sonarr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -15,6 +19,7 @@ releases:
 
   - name: calibre
     chart: ../helm-charts/media-management/calibre
+    installed: {{ and (index $values.features "media-management") $values.calibre.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -22,6 +27,7 @@ releases:
 
   - name: calibreweb
     chart: ../helm-charts/media-management/calibreweb
+    installed: {{ and (index $values.features "media-management") $values.calibreweb.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -29,6 +35,7 @@ releases:
 
   - name: lidarr
     chart: ../helm-charts/media-management/lidarr
+    installed: {{ and (index $values.features "media-management") $values.lidarr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -36,6 +43,7 @@ releases:
 
   - name: bazarr
     chart: ../helm-charts/media-management/bazarr
+    installed: {{ and (index $values.features "media-management") $values.bazarr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -43,6 +51,7 @@ releases:
 
   - name: readarr
     chart: ../helm-charts/media-management/readarr
+    installed: {{ and (index $values.features "media-management") $values.readarr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -50,6 +59,7 @@ releases:
 
   - name: jellyseerr
     chart: ../helm-charts/media-management/jellyseerr
+    installed: {{ and (index $values.features "media-management") $values.jellyseerr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
@@ -57,6 +67,7 @@ releases:
 
   - name: overseerr
     chart: ../helm-charts/media-management/overseerr
+    installed: {{ and (index $values.features "media-management") $values.overseerr.enabled }}
     namespace: media-management
     createNamespace: true
     values:
