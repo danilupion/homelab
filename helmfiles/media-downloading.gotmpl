@@ -1,6 +1,9 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
 releases:
   - name: transmission
     chart: ../helm-charts/media-downloading/transmission
+    installed: {{ and (index $values.features "media-downloading") $values.transmission.enabled }}
     namespace: media-downloading
     createNamespace: true
     values:
@@ -8,6 +11,7 @@ releases:
 
   - name: sabnzbd
     chart: ../helm-charts/media-downloading/sabnzbd
+    installed: {{ and (index $values.features "media-downloading") $values.sabnzbd.enabled }}
     namespace: media-downloading
     createNamespace: true
     values:

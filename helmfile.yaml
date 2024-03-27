@@ -1,8 +1,8 @@
 helmfiles:
   - path: helmfiles/infra.yaml
-  - path: helmfiles/security.yaml
-  - path: helmfiles/media-indexing.yaml
-  - path: helmfiles/media-downloading.yaml
-  - path: helmfiles/media-management.yaml
-  - path: helmfiles/media-streaming.yaml
-  - path: helmfiles/tools.yaml
+  - path: helmfiles/security.yaml.gotmpl
+  - path: helmfiles/media-indexing.gotmpl
+  - path: helmfiles/media-downloading.gotmpl
+  - path: helmfiles/media-management.gotmpl
+  - path: helmfiles/media-streaming.yaml.gotmpl
+  - path: helmfiles/tools.gotmpl

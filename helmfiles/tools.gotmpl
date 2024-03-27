@@ -1,6 +1,9 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
 releases:
   - name: homarr
     chart: ../helm-charts/tools/homarr
+    installed: {{ and $values.features.tools $values.homarr.enabled }}
     namespace: tools
     createNamespace: true
     values:
@@ -8,6 +11,7 @@ releases:
 
   - name: fileflows
     chart: ../helm-charts/tools/fileflows
+    installed: {{ and $values.features.tools $values.fileflows.enabled }}
     namespace: tools
     createNamespace: true
     values:
@@ -15,6 +19,7 @@ releases:
 
   - name: home-assistant
     chart: ../helm-charts/tools/home-assistant
+    installed: {{ and $values.features.tools $values.homeassistant.enabled }}
     namespace: tools
     createNamespace: true
     values:
@@ -22,6 +27,7 @@ releases:
 
   - name: filebrowser
     chart: ../helm-charts/tools/filebrowser
+    installed: {{ and $values.features.tools $values.filebrowser.enabled }}
     namespace: tools
     createNamespace: true
     values:
