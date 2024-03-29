@@ -7,6 +7,8 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: jetstack
     url: https://charts.jetstack.io
+  - name: sealed-secrets
+    url: https://bitnami-labs.github.io/sealed-secrets
 
 releases:
   - name: cilium
@@ -106,3 +108,10 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
+
+  - name: sealed-secrets
+    namespace: kube-system
+    chart: sealed-secrets/sealed-secrets
+    version: 2.15.2
+    values:
+      - fullnameOverride: sealed-secrets-controller

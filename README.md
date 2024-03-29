@@ -18,6 +18,8 @@ install-k8s-cluster.sh
 
 Once k8s credentials are available use them (.kube config file) make a copy of values-template.yaml and update the file with proper values.
 
+*Note*: bash 4.0 or higher is required to run the following commands.
+
 ```bash(from k8s cluster)
 cp values-template.yaml values.yaml
 ```
@@ -33,6 +35,7 @@ install-homelab.sh
 - [metallb](https://metallb.universe.tf/): 0.14.3
 - [cert-manager](https://cert-manager.io/): 1.14.3
 - [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.10.0
+- [sealed-secrets](https://sealed-secrets.netlify.app/): 2.15.2
 
 ## Update (configuration)
 

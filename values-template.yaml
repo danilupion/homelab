@@ -2,6 +2,7 @@ ip:
 
 domain:
 
+# Paths used by the applications
 paths:
   configRoot:
   tempRoot:
@@ -34,6 +35,8 @@ paths:
     #    path: /mnt/disk1
     #  - name: disk2
     #    path: /mnt/disk2
+
+# Features to enable
 features:
   downloading: true
   indexing: true
@@ -41,7 +44,9 @@ features:
   media-streaming: true
   security: true
   tools: true
+  dev: true
 
+# Infra applications
 letsencrypt:
   acme:
     email:
@@ -50,10 +55,12 @@ cloudflare:
   email:
   apiToken:
 
+# Security applications
 wireguard:
   enabled: false
   peers: # List of client names
 
+# Media Downloading applications
 transmission:
   enabled: true
   user:
@@ -67,12 +74,14 @@ sabnzbd:
   mediaTypes:
     - downloads
 
+# Media Indexing applications
 prowlarr:
   enabled: true
 
 nzbhydra2:
   enabled: true
 
+# Media Management applications
 radarr:
   enabled: true
   defaultEnabled: true
@@ -128,6 +137,7 @@ jellyseerr:
 overseerr:
   enabled: true
 
+# Media Streaming applications
 jellyfin:
   enabled: true
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
@@ -162,6 +172,7 @@ emby:
     - music
     - downloads
 
+# Tools applications
 homarr:
   enabled: true
 
@@ -177,3 +188,7 @@ filebrowser:
   enabled: true
   mediaTypes:
     - disks
+
+# Dev applications
+renovate:
+  enabled: true
