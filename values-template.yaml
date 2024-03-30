@@ -200,3 +200,9 @@ renovate:
 # Observability applications
 metrics-server:
   enabled: true
+
+kube-prometheus-stack:
+  enabled: true
+  grafana:
+    adminUser: "admin"
+    adminPassword: "changeme"

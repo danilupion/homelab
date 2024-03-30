@@ -105,7 +105,7 @@ For native apps in the same network you will need to set Settings -> Network -> 
 
 ### Tools
 
-#### kubernetes-dashboard (based on [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/))
+#### [kubernetes-dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
 
 #### homarr (based on [Homarr](https://homarr.dev/))
 
@@ -130,4 +130,7 @@ https://hacs.xyz/
 
 ### Observability
 
-#### metrics-server (based on [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)
+#### [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
+
+#### [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+Includes Prometheus, Grafana, Alertmanager, and kube-state-metrics
