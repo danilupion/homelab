@@ -1,0 +1,19 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
+repositories:
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server/
+
+releases:
+  - name: metrics-server
+    labels:
+      app: metrics-server
+    chart: metrics-server/metrics-server
+    installed: {{ and $values.features.observability (index $values "metrics-server" "enabled") }}
+    version: 3.12.0
+    namespace: observability
+    createNamespace: true
+    values:
+      - args:
+        - --kubelet-insecure-tls=true
+

@@ -7,3 +7,4 @@ helmfiles:
   - path: helmfiles/media-streaming.yaml.gotmpl
   - path: helmfiles/tools.gotmpl
   - path: helmfiles/dev.gotmpl
+  - path: helmfiles/observability.gotmpl

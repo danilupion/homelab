@@ -127,3 +127,7 @@ https://hacs.xyz/
 ### Dev
 
 #### renovate (based on [Renovate](https://docs.renovatebot.com/))
+
+### Observability
+
+#### metrics-server (based on [Metrics Server](https://github.com/kubernetes-sigs/metrics-server)

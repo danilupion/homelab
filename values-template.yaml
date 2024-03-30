@@ -45,6 +45,7 @@ features:
   security: true
   tools: true
   dev: true
+  observability: true
 
 # Infra applications
 letsencrypt:
@@ -194,4 +195,8 @@ filebrowser:
 
 # Dev applications
 renovate:
+  enabled: true
+
+# Observability applications
+metrics-server:
   enabled: true
