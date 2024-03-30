@@ -61,16 +61,20 @@ update-homelab.sh
 
 #### wireguard (based on [WireGuard](https://www.wireguard.com/))
 
-### Media Management
+### Media Indexing
 
 #### prowlarr (based on [Prowlarr](https://prowlarr.com))
 
 #### nzbhydra2 (based on [NZBHydra2](https://github.com/theotherp/nzbhydra2))
 
+### Media Downloading
+
 #### transmission (based on [Transmission](https://transmissionbt.com/))
 
 #### sabnzbd (based on [SABnzbd](https://sabnzbd.org/))
 You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname-check.html
+
+### Media Management
 
 #### radarr (based on [Radarr](https://radarr.video/))
 
@@ -86,16 +90,20 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 
 #### calibre-web (based on [Calibre-Web](https://github.com/janeczku/calibre-web))
 
-#### jellyfin (based on [Jellyfin](https://jellyfin.org/))
-
-#### plex (based on [Plex Media Server](https://www.plex.tv/))
-For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to soemthing lik `https://plex.yourdomain`
-
-#### emby (based on [Emby](https://emby.media/))
-
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
 
 #### overseerr (based on [Overseerr](https://overseerr.dev/))
+
+### Media Streaming
+
+#### jellyfin (based on [Jellyfin](https://jellyfin.org/))
+
+#### plex (based on [Plex Media Server](https://www.plex.tv/))
+For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to something like `https://plex.yourdomain.tld`
+
+#### emby (based on [Emby](https://emby.media/))
+
+### Tools
 
 #### homarr (based on [Homarr](https://homarr.dev/))
 
@@ -113,3 +121,7 @@ http:
 
 Probably you also want to install hacs (Home Assistant Community Store) to get more integrations and plugins.
 https://hacs.xyz/
+
+### Dev
+
+#### renovate (based on [Renovate](https://docs.renovatebot.com/))

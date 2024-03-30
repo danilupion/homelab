@@ -6,3 +6,4 @@ helmfiles:
   - path: helmfiles/media-management.gotmpl
   - path: helmfiles/media-streaming.yaml.gotmpl
   - path: helmfiles/tools.gotmpl
+  - path: helmfiles/dev.gotmpl

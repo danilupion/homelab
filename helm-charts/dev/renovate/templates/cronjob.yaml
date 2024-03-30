@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renovate
+spec:
+  schedule: '@hourly'
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1 # Keep only the last failed job
+  successfulJobsHistoryLimit: 1 # Keep only the last successful job
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 60 # Keep the job for 11 minutes after it finishes
+      template:
+        spec:
+          initContainers:
+            - name: adjust-permissions
+              image: busybox
+              command: [ 'sh', '-c', 'chown -R {{ required "A value for renovate.puid is required" .Values.renovate.puid }}:{{ required "A value for renovate.guid is required" .Values.renovate.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/renovate' ]
+              volumeMounts:
+                - name: config
+                  mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/renovate
+          containers:
+            - name: renovate
+              # Update this to the latest available and then enable Renovate on
+              # the manifest
+              image: renovate/renovate
+              securityContext:
+                runAsUser: {{ required "A value for renovate.puid is required" .Values.renovate.puid }}
+                runAsGroup: {{ required "A value for renovate.guid is required" .Values.renovate.guid }}
+              env:
+                - name: LOG_LEVEL
+                  value: debug
+                - name: RENOVATE_CONFIG_FILE
+                  value: /config/config.json
+              volumeMounts:
+                - name: config
+                  mountPath: /config
+          volumes:
+            - name: config
+              hostPath:
+                path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/renovate
+          restartPolicy: Never
