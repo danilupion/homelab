@@ -1,6 +1,14 @@
 {{- $values := readFile "../values.yaml" | fromYaml -}}
 
 releases:
+  - name: kubernetes-dashboard
+    chart: ../helm-charts/tools/kubernetes-dashboard
+    installed: {{ and $values.features.tools (index $values "kubernetes-dashboard" "enabled") }}
+    namespace: kubernetes-dashboard
+    createNamespace: true
+    values:
+      - ../values.yaml
+
   - name: homarr
     chart: ../helm-charts/tools/homarr
     installed: {{ and $values.features.tools $values.homarr.enabled }}

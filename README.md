@@ -105,6 +105,8 @@ For native apps in the same network you will need to set Settings -> Network -> 
 
 ### Tools
 
+#### kubernetes-dashboard (based on [Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/))
+
 #### homarr (based on [Homarr](https://homarr.dev/))
 
 #### fileflows (based on [FileFlows](https://fileflows.com/))

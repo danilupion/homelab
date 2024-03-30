@@ -173,6 +173,9 @@ emby:
     - downloads
 
 # Tools applications
+kubernetes-dashboard:
+  enabled: true
+
 homarr:
   enabled: true
 

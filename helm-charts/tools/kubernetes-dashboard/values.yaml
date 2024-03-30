@@ -1,0 +1,5 @@
+kubernetes-dashboard:
+  ports:
+    - name: https
+      port: 443
+      targetPort: 443
