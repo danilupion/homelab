@@ -1,4 +1,8 @@
-tz: Europe/Madrid
 renovate:
   puid: 1000
   guid: 1000
+  cronjob:
+    enabled: true
+    schedule: "@daily"
+  job:
+    enabled: false

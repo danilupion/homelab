@@ -196,6 +196,12 @@ filebrowser:
 # Dev applications
 renovate:
   enabled: true
+  cronjob:
+    enabled: true
+    schedule: "@daily"
+  job:
+    enabled: false
+  token: # Personal Access Token from github
 
 # Observability applications
 metrics-server:
@@ -205,4 +211,4 @@ kube-prometheus-stack:
   enabled: true
   grafana:
     adminUser: "admin"
-    adminPassword: "changeme"
+    adminPassword: # Password for the admin user

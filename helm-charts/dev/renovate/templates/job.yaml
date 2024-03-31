@@ -1,0 +1,8 @@
+{{- if .Values.renovate.job.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: renovate-manual
+spec:
+  {{- include "chartname.jobSpec" . | nindent 2 }}
+{{- end -}}
