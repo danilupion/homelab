@@ -1,6 +1,0 @@
-apiVersion: v2
-name: custom-dns
-description: A Helm chart for deploying a dedicated CoreDNS instance for custom domain overrides
-type: application
-version: 0.1.0
-appVersion: 0.1.0
