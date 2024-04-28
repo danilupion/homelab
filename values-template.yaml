@@ -1,11 +1,12 @@
 ip:
-
+uid: 1000
+gid: 1000
+tz: Europe/Madrid
 domain:
 
 # Paths used by the applications
 paths:
   configRoot:
-  tempRoot:
   mediaPaths:
     downloads:
     # - name: downloads
@@ -56,12 +57,14 @@ cloudflare:
   email:
   apiToken:
 
-# Security applications
+# Services
+
+## Security applications
 wireguard:
   enabled: false
   peers: # List of client names
 
-# Media Downloading applications
+## Media Downloading applications
 transmission:
   enabled: true
   user:
@@ -75,14 +78,14 @@ sabnzbd:
   mediaTypes:
     - downloads
 
-# Media Indexing applications
+## Media Indexing applications
 prowlarr:
   enabled: true
 
 nzbhydra2:
   enabled: true
 
-# Media Management applications
+## Media Management applications
 radarr:
   enabled: true
   defaultEnabled: true
@@ -138,7 +141,7 @@ jellyseerr:
 overseerr:
   enabled: true
 
-# Media Streaming applications
+## Media Streaming applications
 jellyfin:
   enabled: true
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
@@ -173,7 +176,7 @@ emby:
     - music
     - downloads
 
-# Tools applications
+## Tools applications
 kubernetes-dashboard:
   enabled: true
 
@@ -193,7 +196,7 @@ filebrowser:
   mediaTypes:
     - disks
 
-# Dev applications
+## Dev applications
 renovate:
   enabled: true
   cronjob:
@@ -203,7 +206,7 @@ renovate:
     enabled: false
   token: # Personal Access Token from github
 
-# Observability applications
+## Observability applications
 metrics-server:
   enabled: true
 

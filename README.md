@@ -45,6 +45,23 @@ After you have made changes in the configuration (charts or values.yaml) you can
 update-homelab.sh
 ```
 
+## Services Configuration
+
+Global settings:
+
+* uid
+* gid
+* tz
+
+Those settings can be overridden per service, for example:
+
+``` 
+prowlarr:
+  uid: 1000
+  gid: 1000
+  tz: Europe/Madrid
+```
+
 ## Helm Charts
 
 ### Networking

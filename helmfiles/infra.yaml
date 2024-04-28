@@ -15,18 +15,14 @@ releases:
     labels:
       app: cilium
     chart: cilium/cilium
-    version: 1.14.7
-    namespace: cilium
-    createNamespace: true
-    values:
-      - operator:
-          replicas: 1
+    version: 1.15.4
+    namespace: kube-system
 
   - name: metallb
     labels:
       app: metallb
     chart: metallb/metallb
-    version: 0.14.3
+    version: 0.14.5
     namespace: metallb-system
     createNamespace: true
 
@@ -34,20 +30,15 @@ releases:
     labels:
       app: ingress-nginx
     chart: ingress-nginx/ingress-nginx
-    version: 4.10.0
+    version: 4.10.1
     namespace: ingress-nginx
     createNamespace: true
-    values:
-      - controller:
-          service:
-            annotations:
-              metallb.universe.tf/allow-shared-ip: "shared-ip-group-1"
 
   - name: cert-manager
     labels:
       app: cert-manager
     chart: jetstack/cert-manager
-    version: v1.14.3
+    version: v1.14.5
     namespace: cert-manager
     createNamespace: true
     values:
@@ -100,18 +91,9 @@ releases:
     values:
       - ../values.yaml
 
-  - name: custom-dns
-    labels:
-      app: custom-dns
-    chart: ../helm-charts/networking/custom-dns
-    namespace: networking
-    createNamespace: true
-    values:
-      - ../values.yaml
-
   - name: sealed-secrets
     namespace: kube-system
     chart: sealed-secrets/sealed-secrets
-    version: 2.15.2
+    version: 2.15.3
     values:
       - fullnameOverride: sealed-secrets-controller

@@ -4,4 +4,4 @@ metadata:
   name: pool
 spec:
   addresses:
-    - {{ required "A value for ip is required" .Values.ip }}/32
+    - {{ required "A value for ip is required" .Values.ip }}
