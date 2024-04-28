@@ -1,4 +1,26 @@
 {{/*
+Determine the value for any property for a generic service
+Usage:
+  include "service.value" (dict "context" . "prop" "uid")
+*/}}
+{{- define "service.value" -}}
+{{- $propertyName := .prop | required "You must specify a prop name!" -}}
+{{- $servicePropertyKey := printf "%s.%s" .context.Chart.Name $propertyName -}}
+{{- $defaultPropertyKey := printf "%s" $propertyName -}}
+{{- $value := coalesce (index .context.Values .context.Chart.Name $propertyName) (index .context.Values $propertyName) -}}
+{{- required (printf "A valid .Values.%s or .Values.%s is required!" $defaultPropertyKey $servicePropertyKey) $value -}}
+{{- end -}}
+
+{{/*
+Determine a service subdomain
+Usage:
+  include "service.subdomain" .
+*/}}
+{{- define "service.subdomain" -}}
+{{- coalesce (index .Values .Chart.Name "subdomain") .Chart.Name -}}
+{{- end -}}
+
+{{/*
 Determine the port number for a given port name from a passed list of ports. If the port is not found, an error is thrown.
 Usage:
   include "utils.portByName" (dict "ports" .Values.object.ports "portName" "web")
