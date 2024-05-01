@@ -28,7 +28,7 @@ spec:
           securityContext:
             runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
             runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
-          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }} && chmod 700 /configRoot/{{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}']
           volumeMounts:
             - name: config-root
               mountPath: /configRoot
