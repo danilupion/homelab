@@ -2,71 +2,82 @@
 Create Radarr deployment
 */}}
 {{- define "radarr.deployment" -}}
-{{- $lang := default "default" .language -}}  # Set $lang to "default" if .language is not set
+{{- $lang := default "default" .language -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-app
+  name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-app
   labels:
-    app: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-    language: {{ $lang }}  # Add the language label
+    app: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+    language: {{ $lang }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-      language: {{ $lang }}  # Ensure the selector includes the language label
+      app: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+      language: {{ $lang }}
   template:
     metadata:
       labels:
-        app: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-        language: {{ $lang }}  # Pod template labels also include the language
+        app: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+        language: {{ $lang }}
     spec:
+      initContainers:
+        - name: create-config-dir
+          image: busybox
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
+          volumeMounts:
+            - name: config-root
+              mountPath: /configRoot
       containers:
-        - name: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+        - name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
           image: lscr.io/linuxserver/radarr:latest
           env:
             - name: PUID
-              value: {{ required "A value for radarr.puid is required" .Values.radarr.puid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
             - name: PGID
-              value: {{ required "A value for radarr.guid is required" .Values.radarr.guid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
-              value: {{ required "A value for tz is required" .Values.tz | quote }}
+              value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
           ports:
-            {{- range .Values.radarr.ports }}
+            {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
               protocol: {{ default "TCP" .protocol }}
             {{- end }}
           volumeMounts:
-            - name: config
+            - name: config-root
               mountPath: /config
-            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.radarr.mediaTypes) | nindent 12 }}
+              subPath: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes")) | nindent 12 }}
       volumes:
-        - name: config
+        - name: config-root
           hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.radarr.mediaTypes "suffix" .language) | nindent 8 }}
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes" )) | nindent 8 }}
 {{- end -}}
 
 {{/*
 Create Radarr service
 */}}
 {{- define "radarr.service" -}}
-{{- $lang := default "default" .language -}}  # Set $lang to "default" if .language is not set
+{{- $lang := default "default" .language -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-service
+  name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-service
   labels:
-    app: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-    language: {{ $lang }}  # Add the language labelspec:
+    app: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+    language: {{ $lang }}
 spec:
   type: ClusterIP
   selector:
-    app: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-    language: {{ $lang }}  # Ensure the selector includes the language label
+    app: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+    language: {{ $lang }}
   ports:
-    {{- range .Values.radarr.ports }}
+    {{- range (index .Values .Chart.Name "ports") }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}
@@ -78,14 +89,14 @@ spec:
 Create Radarr ingress
 */}}
 {{- define "radarr.ingress" -}}
-{{- $lang := default "default" .language -}}  # Set $lang to "default" if .language is not set
+{{- $lang := default "default" .language -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-ingress
+  name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-ingress
   labels:
-    app: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-    language: {{ $lang }}  # Add the language label
+    app: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
+    language: {{ $lang }}
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cloudflare"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -94,17 +105,17 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
-      secretName: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-tls-secret
+        - {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
+      secretName: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-tls-secret
   rules:
-    - host: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
+    - host: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: radarr{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-service
+                name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-service
                 port:
-                  number: {{ include "utils.portByName" (dict "ports" .Values.radarr.ports "portName" "http") }}
+                  number: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name "ports") "portName" "http") }}
 {{- end -}}
