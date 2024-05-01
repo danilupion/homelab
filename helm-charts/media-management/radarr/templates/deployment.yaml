@@ -4,14 +4,14 @@
 {{- end }}
 
 {{- /* Ensure there's a separation between the defaultEnabled deployment and the language-specific deployments */}}
-{{- if and .Values.radarr.defaultEnabled (gt (len .Values.radarr.languages) 0) }}
+{{- if and (index .Values .Chart.Name "defaultEnabled") (gt (len (index .Values .Chart.Name "languages")) 0) }}
 ---
 {{- end }}
 
-{{- if and .Values.radarr.languages (gt (len .Values.radarr.languages) 0) }}
+{{- if and (index .Values .Chart.Name "languages") (gt (len (index .Values .Chart.Name "languages")) 0) }}
   {{/* Capture the original context outside of the range */}}
   {{- $rootContext := . }}
-  {{- range $index, $lang := .Values.radarr.languages }}
+  {{- range $index, $lang := (index .Values .Chart.Name "languages") }}
   {{- if $index }}
 ---
   {{- end }}
