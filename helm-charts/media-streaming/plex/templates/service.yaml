@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: plex-service
+  name: {{ .Chart.Name }}-service
 spec:
   type: ClusterIP
   selector:
-    app: plex
+    app: {{ .Chart.Name }}
   ports:
-    {{- range .Values.plex.ports }}
+    {{- range (index .Values .Chart.Name).ports }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}
