@@ -1,38 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: overseerr-app
+  name: {{ .Chart.Name }}-app
   labels:
-    app: overseerr
+    app: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: overseerr
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: overseerr
+        app: {{ .Chart.Name }}
     spec:
+      initContainers:
+        - name: create-config-dir
+          image: busybox
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
+          volumeMounts:
+            - name: config-root
+              mountPath: /configRoot
       containers:
-        - name: overseerr
+        - name: {{ .Chart.Name }}
           image: lscr.io/linuxserver/overseerr:latest
           env:
             - name: PUID
-              value: {{ required "A value for overseerr.puid is required" .Values.overseerr.puid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
             - name: PGID
-              value: {{ required "A value for overseerr.guid is required" .Values.overseerr.guid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
-              value: {{ required "A value for tz is required" .Values.tz | quote }}
+              value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
           ports:
-            {{- range .Values.overseerr.ports }}
+            {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
               protocol: {{ default "TCP" .protocol }}
             {{- end }}
           volumeMounts:
-            - name: config
+            - name: config-root
               mountPath: /config
+              subPath: {{ .Chart.Name }}
       volumes:
-        - name: config
+        - name: config-root
           hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/overseerr
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
