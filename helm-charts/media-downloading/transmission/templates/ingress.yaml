@@ -13,13 +13,13 @@ spec:
         - {{ include "service.subdomain" . }}.{{ required "A value for domain is required" .Values.domain }}
       secretName: {{ .Chart.Name }}-tls-secret
   rules:
-      - host: {{ include "service.subdomain" . }}.{{ required "A value for domain is required" .Values.domain }}
-        http:
-          paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                  service:
-                    name: {{ .Chart.Name }}-service
-                    port:
-                      number: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name).ports "portName" "http") }}
+    - host: {{ include "service.subdomain" . }}.{{ required "A value for domain is required" .Values.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Chart.Name }}-service
+                port:
+                  number: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name).ports "portName" "http") }}
