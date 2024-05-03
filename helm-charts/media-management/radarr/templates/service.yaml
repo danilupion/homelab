@@ -1,17 +1,17 @@
-{{- if .Values.radarr.defaultEnabled }}
+{{- if (index .Values .Chart.Name "defaultEnabled") }}
   {{- $context := merge (dict "language" nil) (deepCopy .) }}
   {{- include "radarr.service" $context | nindent 0 }}
 {{- end }}
 
 {{- /* Ensure there's a separation between the defaultEnabled service and the language-specific service */}}
-{{- if and .Values.radarr.defaultEnabled (gt (len .Values.radarr.languages) 0) }}
+{{- if and (index .Values .Chart.Name "defaultEnabled") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
 ---
 {{- end }}
 
-{{- if and .Values.radarr.languages (gt (len .Values.radarr.languages) 0) }}
+{{- if and (index .Values .Chart.Name "languages") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
   {{/* Capture the original context outside of the range */}}
   {{- $rootContext := . }}
-  {{- range $index, $lang := .Values.radarr.languages }}
+  {{- range $index, $lang := (index .Values .Chart.Name "languages") }}
   {{- if $index }}
 ---
   {{- end }}

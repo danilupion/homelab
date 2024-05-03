@@ -1,14 +1,14 @@
-{{- if .Values.radarr.defaultEnabled }}
+{{- if (index .Values .Chart.Name "defaultEnabled") }}
   {{- $context := merge (dict "language" nil) (deepCopy .) }}
   {{- include "radarr.deployment" $context | nindent 0 }}
 {{- end }}
 
 {{- /* Ensure there's a separation between the defaultEnabled deployment and the language-specific deployments */}}
-{{- if and (index .Values .Chart.Name "defaultEnabled") (gt (len (index .Values .Chart.Name "languages")) 0) }}
+{{- if and (index .Values .Chart.Name "defaultEnabled") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
 ---
 {{- end }}
 
-{{- if and (index .Values .Chart.Name "languages") (gt (len (index .Values .Chart.Name "languages")) 0) }}
+{{- if and (index .Values .Chart.Name "languages") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
   {{/* Capture the original context outside of the range */}}
   {{- $rootContext := . }}
   {{- range $index, $lang := (index .Values .Chart.Name "languages") }}
