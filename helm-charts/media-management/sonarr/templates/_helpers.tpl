@@ -34,7 +34,7 @@ spec:
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-          image: lscr.io/linuxserver/radarr:latest
+          image: lscr.io/linuxserver/sonarr:latest
           env:
             - name: PUID
               value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
