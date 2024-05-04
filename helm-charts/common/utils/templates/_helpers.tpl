@@ -26,7 +26,10 @@ Usage:
   include "service.volumes" .
 */}}
 {{- define "service.volumes" -}}
-{{- index .Values .Chart.Name "volumes" | toYaml | trim -}}
+{{- $volumes := index .Values .Chart.Name "volumes" | default (list) -}}
+{{- if gt (len $volumes) 0 -}}
+{{- $volumes | toYaml | trim -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
@@ -35,7 +38,10 @@ Usage:
   include "service.volumeMounts" .
 */}}
 {{- define "service.volumeMounts" -}}
-{{- index .Values .Chart.Name "volumeMounts" | toYaml | trim -}}
+{{- $volumeMounts := index .Values .Chart.Name "volumeMounts" | default (list) -}}
+{{- if gt (len $volumeMounts) 0 -}}
+{{- $volumeMounts | toYaml | trim -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
