@@ -52,11 +52,13 @@ spec:
               mountPath: /config
               subPath: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
             {{- include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes")) | nindent 12 }}
+            {{- include "service.volumeMounts" . | nindent 12 }}
       volumes:
         - name: config-root
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
         {{- include "media.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes" )) | nindent 8 }}
+        {{- include "service.volumes" . | nindent 8 }}
 {{- end -}}
 
 {{/*
