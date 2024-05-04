@@ -1,53 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: homarr-app
+  name: {{ .Chart.Name }}-app
   labels:
-    app: homarr
+    app: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: homarr
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: homarr
+        app: {{ .Chart.Name }}
     spec:
       initContainers:
-        - name: adjust-permissions
+        - name: create-config-dir
           image: busybox
-          command: ['sh', '-c', 'chown -R {{ required "A value for homarr.puid is required" .Values.homarr.puid }}:{{ required "A value for homarr.guid is required" .Values.homarr.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/homarr']
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }}/configs && mkdir -p /configRoot/{{ .Chart.Name }}/icons && mkdir -p /configRoot/{{ .Chart.Name }}/data && chmod 700 /configRoot/{{ .Chart.Name }} -R']
           volumeMounts:
-            - name: config
-              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/homarr
+            - name: config-root
+              mountPath: /configRoot
       containers:
-        - name: homarr
+        - name: {{ .Chart.Name }}
           image: ghcr.io/ajnart/homarr:latest
           # Not supported currently, runs as root
           securityContext:
-           runAsUser: {{ required "A value for homarr.puid is required" .Values.homarr.puid }}
-           runAsGroup: {{ required "A value for homarr.guid is required" .Values.homarr.guid }}
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
           env:
             - name: TZ
               value: {{ required "A value for tz is required" .Values.tz | quote }}
           ports:
-            {{- range .Values.homarr.ports }}
+            {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
               protocol: {{ default "TCP" .protocol }}
             {{- end }}
           volumeMounts:
-            - name: config
+            - name: config-root
               mountPath: /app/data/configs
-              subPath: configs
-            - name: config
+              subPath: "{{ .Chart.Name }}/configs"
+            - name: config-root
               mountPath: /app/public/icons
-              subPath: icons
-            - name: config
+              subPath: "{{ .Chart.Name }}/icons"
+            - name: config-root
               mountPath: /data
-              subPath: data
+              subPath: "{{ .Chart.Name }}/data"
       volumes:
-        - name: config
+        - name: config-root
           hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/homarr
-            type: DirectoryOrCreate
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes" )) | nindent 8 }}
