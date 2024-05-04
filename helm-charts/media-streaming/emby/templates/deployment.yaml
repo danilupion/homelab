@@ -34,10 +34,10 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            {{- include "utils.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.emby.mediaTypes "extraMediaLanguages" .Values.emby.extraMediaLanguages ) | nindent 12 }}
+            {{- include "media.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.emby.mediaTypes "extraMediaLanguages" .Values.emby.extraMediaLanguages ) | nindent 12 }}
       volumes:
         - name: config
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/emby
-        {{- include "utils.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.emby.mediaTypes "extraMediaLanguages" .Values.emby.extraMediaLanguages) | nindent 8 }}
+        {{- include "media.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.emby.mediaTypes "extraMediaLanguages" .Values.emby.extraMediaLanguages) | nindent 8 }}
 
