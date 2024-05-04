@@ -105,10 +105,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
+        - {{ include "service.subdomain" . }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
       secretName: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}-tls-secret
   rules:
-    - host: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
+    - host: {{ include "service.subdomain" . }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}.{{ required "A value for domain is required" .Values.domain }}
       http:
         paths:
           - path: /
