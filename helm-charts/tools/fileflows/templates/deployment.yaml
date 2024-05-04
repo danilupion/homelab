@@ -45,10 +45,10 @@ spec:
             - name: config
               mountPath: /app/Logs
               subPath: logs
-            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 12 }}
+            {{- include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 12 }}
       volumes:
         - name: config
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows
             type: DirectoryOrCreate
-        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 8 }}
+        {{- include "media.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 8 }}

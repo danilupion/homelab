@@ -47,7 +47,7 @@ spec:
               subPath: data/filebrowser.db
             - name: root
               mountPath: /srv
-            {{- include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.filebrowser.mediaTypes) | nindent 12 }}
+            {{- include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.filebrowser.mediaTypes) | nindent 12 }}
       volumes:
         - name: root
           hostPath:
@@ -56,4 +56,4 @@ spec:
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/filebrowser
             type: DirectoryOrCreate
-        {{- include "utils.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.filebrowser.mediaTypes) | nindent 8 }}
+        {{- include "media.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.filebrowser.mediaTypes) | nindent 8 }}

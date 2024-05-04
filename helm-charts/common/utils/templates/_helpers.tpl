@@ -21,6 +21,24 @@ Usage:
 {{- end -}}
 
 {{/*
+Determine a service volumes
+Usage:
+  include "service.volumes" .
+*/}}
+{{- define "service.volumes" -}}
+{{- index .Values .Chart.Name "volumes" | toYaml | trim -}}
+{{- end -}}
+
+{{/*
+Determine a service volumeMounts
+Usage:
+  include "service.volumeMounts" .
+*/}}
+{{- define "service.volumeMounts" -}}
+{{- index .Values .Chart.Name "volumeMounts" | toYaml | trim -}}
+{{- end -}}
+
+{{/*
 Determine the port number for a given port name from a passed list of ports. If the port is not found, an error is thrown.
 Usage:
   include "utils.portByName" (dict "ports" .Values.object.ports "portName" "web")
@@ -46,9 +64,9 @@ Usage:
 {{/*
 Generate volumeMounts for a specified service
 Usage:
-  include "utils.volumeMounts" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes)
+  include "media.volumeMounts" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes)
 */}}
-{{- define "utils.volumeMounts" -}}
+{{- define "media.volumeMounts" -}}
 {{- $mediaPaths := .mediaPaths -}}
 {{- $mediaTypes := .mediaTypes -}}
 {{- range $mediaTypes -}}
@@ -63,9 +81,9 @@ Usage:
 {{/*
 Generate volumes for a specified service
 Usage:
-  include "utils.volumes" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes)
+  include "media.volumes" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes)
 */}}
-{{- define "utils.volumes" -}}
+{{- define "media.volumes" -}}
 {{- $mediaPaths := .mediaPaths -}}
 {{- $mediaTypes := .mediaTypes -}}
 {{- $suffix := .suffix | default "" -}}
@@ -82,9 +100,9 @@ Usage:
 {{/*
 Generate volumeMounts for a specified service, including language-specific mounts
 Usage:
-  include "utils.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages)
+  include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.jellyfin.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages)
 */}}
-{{- define "utils.volumeMounts-localized" -}}
+{{- define "media.volumeMounts-localized" -}}
 {{- $mediaPaths := .mediaPaths -}}
 {{- $mediaTypes := .mediaTypes -}}
 {{- $extraMediaLanguages := .extraMediaLanguages | default (list) -}}
@@ -110,9 +128,9 @@ Usage:
 {{/*
 Generate volumes for a specified service, including language-specific volumes
 Usage:
-  include "utils.volumes" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages)
+  include "media.volumes" (dict "mediaPaths" .Values.object.mediaPaths "mediaTypes" .Values.object.mediaTypes "extraMediaLanguages" .Values.jellyfin.extraMediaLanguages)
 */}}
-{{- define "utils.volumes-localized" -}}
+{{- define "media.volumes-localized" -}}
 {{- $mediaPaths := .mediaPaths -}}
 {{- $mediaTypes := .mediaTypes -}}
 {{- $extraMediaLanguages := .extraMediaLanguages | default (list) -}}
