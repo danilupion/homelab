@@ -18,9 +18,9 @@ paths:
     # - name: movies2
     #   path: /mnt/Movies2
     #   localize: true
-    series:
-    # - name: series1
-    #   path: /mnt/Series
+    tv-shows:
+    # - name: tv-shows
+    #   path: /mnt/TvShows
     #   localize: true
     music:
     # - name: music1
@@ -101,14 +101,14 @@ sonarr:
 # languages: # Optional list of languages to create a Sonarr instance for each language (radar-es for example)
 #   - es
   mediaTypes:
-    - series
+    - tv-shows
     - downloads
 
 bazarr:
   enabled: true
   mediaTypes:
     - movies
-    - series
+    - tv-shows
 
 lidarr:
   enabled: true
@@ -148,7 +148,7 @@ jellyfin:
 #   - es
   mediaTypes:
     - movies
-    - series
+    - tv-shows
     - sports
     - music
     - downloads
@@ -160,7 +160,7 @@ plex:
 #   - es
   mediaTypes:
     - movies
-    - series
+    - tv-shows
     - sports
     - music
     - downloads
@@ -171,7 +171,7 @@ emby:
   #   - es
   mediaTypes:
     - movies
-    - series
+    - tv-shows
     - sports
     - music
     - downloads
