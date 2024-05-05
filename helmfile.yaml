@@ -1,6 +1,5 @@
 helmfiles:
   - path: helmfiles/infra.yaml
-  - path: helmfiles/security.yaml.gotmpl
   - path: helmfiles/media-indexing.gotmpl
   - path: helmfiles/media-downloading.gotmpl
   - path: helmfiles/media-management.gotmpl

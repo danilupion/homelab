@@ -43,7 +43,6 @@ features:
   indexing: true
   media-management: true
   media-streaming: true
-  security: true
   tools: true
   dev: true
   observability: true
@@ -58,11 +57,6 @@ cloudflare:
   apiToken:
 
 # Services
-
-## Security applications
-wireguard:
-  enabled: false
-  peers: # List of client names
 
 ## Media Downloading applications
 transmission:
