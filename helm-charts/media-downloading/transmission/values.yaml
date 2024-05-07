@@ -1,12 +1,15 @@
 transmission:
-  ports:
+  internal-ports:
     - name: http
       port: 9091
       targetPort: 9091
+  external-ports:
     - name: torrent-tcp
       port: 51413
       targetPort: 51413
+      nodePort: 31413
     - name: torrent-udp
       port: 51413
       targetPort: 51413
       protocol: UDP
+      nodePort: 31413

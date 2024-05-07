@@ -20,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Chart.Name }}-service
+                name: {{ .Chart.Name }}-service-clusterip
                 port:
-                  number: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name).ports "portName" "http") }}
+                  number: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name "internal-ports") "portName" "http") }}
