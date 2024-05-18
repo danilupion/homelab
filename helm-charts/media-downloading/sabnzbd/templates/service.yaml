@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sabnzbd-service
+  name: {{ .Chart.Name }}-service
 spec:
   type: ClusterIP
   selector:
-    app: sabnzbd
+    app: {{ .Chart.Name }}
   ports:
-    {{- range .Values.sabnzbd.ports }}
+    {{- range (index .Values .Chart.Name).ports }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}
