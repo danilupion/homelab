@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nzbhydra2-service
+  name: {{ .Chart.Name }}-service
 spec:
   type: ClusterIP
   selector:
-    app: nzbhydra2
+    app: {{ .Chart.Name }}
   ports:
-    {{- range .Values.nzbhydra2.ports }}
+    {{- range (index .Values .Chart.Name).ports }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}

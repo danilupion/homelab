@@ -1,40 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nzbhydra2-app
+  name: {{ .Chart.Name }}-app
   labels:
-    app: nzbhydra2
+    app: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nzbhydra2
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: nzbhydra2
+        app: {{ .Chart.Name }}
     spec:
+      initContainers:
+        - name: create-config-dir
+          image: busybox
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
+          volumeMounts:
+            - name: config-root
+              mountPath: /configRoot
       containers:
-        - name: nzbhydra2
+        - name: {{ .Chart.Name }}
           image: lscr.io/linuxserver/nzbhydra2:latest
           env:
             - name: PUID
-              value: {{ required "A value for nzbhydra2.puid is required" .Values.nzbhydra2.puid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
             - name: PGID
-              value: {{ required "A value for nzbhydra2.guid is required" .Values.nzbhydra2.guid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
-              value: {{ required "A value for tz is required" .Values.tz | quote }}
+              value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
           ports:
-            {{- range .Values.nzbhydra2.ports }}
+            {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
               protocol: {{ default "TCP" .protocol }}
             {{- end }}
           volumeMounts:
-            - name: config
+            - name: config-root
               mountPath: /config
-            {{- include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.nzbhydra2.mediaTypes) | nindent 12 }}
+              subPath: {{ .Chart.Name }}
       volumes:
-        - name: config
+        - name: config-root
           hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/nzbhydra2
-        {{- include "media.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.nzbhydra2.mediaTypes) | nindent 8 }}
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
