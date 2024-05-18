@@ -134,6 +134,9 @@ jellyseerr:
 
 overseerr:
   enabled: true
+  defaultEnabled: true
+# languages: # Optional list of languages to create an overseerr instance for each language (overseerr-es for example)
+#   - es
 
 ## Media Streaming applications
 jellyfin:

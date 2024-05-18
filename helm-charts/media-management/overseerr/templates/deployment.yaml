@@ -1,49 +1,22 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Chart.Name }}-app
-  labels:
-    app: {{ .Chart.Name }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: {{ .Chart.Name }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Chart.Name }}
-    spec:
-      initContainers:
-        - name: create-config-dir
-          image: busybox
-          securityContext:
-            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
-            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
-          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
-          volumeMounts:
-            - name: config-root
-              mountPath: /configRoot
-      containers:
-        - name: {{ .Chart.Name }}
-          image: lscr.io/linuxserver/overseerr:latest
-          env:
-            - name: PUID
-              value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
-            - name: PGID
-              value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
-            - name: TZ
-              value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
-          ports:
-            {{- range (index .Values .Chart.Name).ports }}
-            - containerPort: {{ .port }}
-              protocol: {{ default "TCP" .protocol }}
-            {{- end }}
-          volumeMounts:
-            - name: config-root
-              mountPath: /config
-              subPath: {{ .Chart.Name }}
-      volumes:
-        - name: config-root
-          hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+{{- if (index .Values .Chart.Name "defaultEnabled") }}
+  {{- $context := merge (dict "language" nil) (deepCopy .) }}
+  {{- include "overseerr.deployment" $context | nindent 0 }}
+{{- end }}
+
+{{- /* Ensure there's a separation between the defaultEnabled deployment and the language-specific deployments */}}
+{{- if and (index .Values .Chart.Name "defaultEnabled") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
+---
+{{- end }}
+
+{{- if and (index .Values .Chart.Name "languages") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
+  {{/* Capture the original context outside of the range */}}
+  {{- $rootContext := . }}
+  {{- range $index, $lang := (index .Values .Chart.Name "languages") }}
+  {{- if $index }}
+---
+  {{- end }}
+    {{/* Now merge using the captured root context, not the loop item context */}}
+    {{- $context := merge (dict "language" $lang) (deepCopy $rootContext) }}
+    {{- include "overseerr.deployment" $context | nindent 0 }}
+  {{- end }}
+{{- end }}
