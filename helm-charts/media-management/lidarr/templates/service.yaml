@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: lidarr-service
+  name: {{ .Chart.Name }}-service
 spec:
   type: ClusterIP
   selector:
-    app: lidarr
+    app: {{ .Chart.Name }}
   ports:
-    {{- range .Values.lidarr.ports }}
+    {{- range (index .Values .Chart.Name).ports }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}

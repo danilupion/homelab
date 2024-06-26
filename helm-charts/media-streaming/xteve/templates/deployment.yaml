@@ -20,20 +20,20 @@ spec:
           securityContext:
             runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
             runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
-          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod -R 700 /configRoot/{{ .Chart.Name }}']
           volumeMounts:
             - name: config-root
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}
-          image: filebrowser/filebrowser:latest
+          image: dnsforge/xteve:latest
           env:
-          - name: PUID
-            value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
-          - name: PGID
-            value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
-          - name: TZ
-            value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
+            - name: PUID
+              value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
+            - name: PGID
+              value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
+            - name: TZ
+              value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
@@ -41,20 +41,10 @@ spec:
             {{- end }}
           volumeMounts:
             - name: config-root
-              mountPath: /config
-              subPath: {{ .Chart.Name }}
-            - name: config-root
-              mountPath: /database.db
-              subPath: "{{ .Chart.Name }}/data/filebrowser.db"
-            - name: config-root
-              mountPath: /.filebrowser.json
-              subPath: "{{ .Chart.Name }}/.filebrowser.json"
-            - name: root
-              mountPath: /srv
+              mountPath: /home/xteve
+              subPath: "{{ .Chart.Name }}/conf"
       volumes:
         - name: config-root
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
-        - name: root
-          hostPath:
-            path: {{ required "A value for paths.{{ .Chart.Name }}.configRoot is required" (index .Values .Chart.Name "root") }}
+

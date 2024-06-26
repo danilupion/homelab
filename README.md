@@ -110,17 +110,35 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 ### Media Streaming
 
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
+Once installed go to https://jellyfin.yourdomain/web/#/wizardstart.html to configure the server.
 
 #### plex (based on [Plex Media Server](https://www.plex.tv/))
 For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to something like `https://plex.yourdomain.tld`
 
 #### emby (based on [Emby](https://emby.media/))
 
+#### xteve (based on [xTeVe](https://xteve.de/))
+
+#### threadfin (based on [Threadfin](https://github.com/Threadfin/Threadfin))
+
 ### Tools
 
 #### [kubernetes-dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
 
 #### homarr (based on [Homarr](https://homarr.dev/))
+
+#### filebrowser (based on [File Browser](https://filebrowser.org/)
+This you can use as .filebrowser.json
+```json
+{
+  "port": 8080,
+  "baseURL": "",
+  "address": "",
+  "log": "stdout",
+  "database": "/database.db",
+  "root": "/srv"
+}
+```
 
 #### fileflows (based on [FileFlows](https://fileflows.com/))
 
@@ -136,6 +154,9 @@ http:
 
 Probably you also want to install hacs (Home Assistant Community Store) to get more integrations and plugins.
 https://hacs.xyz/
+
+#### flaresolverr (based on [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr))
+Tool to solve Cloudflare challenges.
 
 ### Dev
 

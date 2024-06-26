@@ -1,7 +1,4 @@
-tz: Europe/Madrid
-homeassistant:
-  puid: 1000
-  guid: 1000
+home-assistant:
   ports:
     - name: http
       port: 8123

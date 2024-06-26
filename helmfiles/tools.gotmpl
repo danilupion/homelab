@@ -40,3 +40,11 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
+
+  - name: flaresolverr
+    chart: ../helm-charts/tools/flaresolverr
+    installed: {{ and $values.features.tools $values.flaresolverr.enabled }}
+    namespace: tools
+    createNamespace: true
+    values:
+      - ../values.yaml
