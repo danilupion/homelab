@@ -31,11 +31,6 @@ paths:
     books:
     # - name: books1
     #   path: /mnt/Books
-    disks:
-    #  - name: disk1
-    #    path: /mnt/disk1
-    #  - name: disk2
-    #    path: /mnt/disk2
 
 # Features to enable
 features:
@@ -173,6 +168,12 @@ emby:
     - music
     - downloads
 
+xteve:
+  enabled: true
+
+threadfin:
+  enabled: true
+
 ## Tools applications
 kubernetes-dashboard:
   enabled: true
@@ -185,12 +186,20 @@ homeassistant:
 
 fileflows:
   enabled: true
-  root: /
+  volumes:
+    - name: storage
+      hostPath:
+        path: /storage
+  volumeMounts:
+    - name: storage
+      mountPath: /storage
 
 filebrowser:
   enabled: true
-  mediaTypes:
-    - disks
+  root: /storage
+
+flaresolverr:
+  enabled: true
 
 ## Dev applications
 renovate:
