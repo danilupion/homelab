@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jellyfin-service
+  name: {{ .Chart.Name }}-service
 spec:
   type: ClusterIP
   selector:
-    app: jellyfin
+    app: {{ .Chart.Name }}
   ports:
-    {{- range .Values.jellyfin.ports }}
+    {{- range (index .Values .Chart.Name).ports }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}

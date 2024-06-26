@@ -1,54 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fileflows-app
+  name: {{ .Chart.Name }}-app
   labels:
-    app: fileflows
+    app: {{ .Chart.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fileflows
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: fileflows
+        app: {{ .Chart.Name }}
     spec:
       initContainers:
-        - name: fileflows-adjust-permissions
+        - name: create-config-dir
           image: busybox
-          command: ['sh', '-c', 'chown -R {{ required "A value for fileflows.puid is required" .Values.fileflows.puid }}:{{ required "A value for fileflows.guid is required" .Values.fileflows.guid }} {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows']
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
           volumeMounts:
-            - name: config
-              mountPath: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows
+            - name: config-root
+              mountPath: /configRoot
       containers:
-        - name: fileflows
+        - name: {{ .Chart.Name }}
           image: revenz/fileflows:latest
           env:
             - name: PUID
-              value: {{ required "A value for fileflows.puid is required" .Values.fileflows.puid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
             - name: PGID
-              value: {{ required "A value for fileflows.guid is required" .Values.fileflows.guid | quote }}
+              value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
-              value: {{ required "A value for tz is required" .Values.tz | quote }}
+              value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
             - name: TempPathHost
               value: "/temp"
           ports:
-            {{- range .Values.fileflows.ports }}
+            {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
               protocol: {{ default "TCP" .protocol }}
             {{- end }}
           volumeMounts:
-            - name: config
+            - name: config-root
               mountPath: /app/Data
-              subPath: data
-            - name: config
+              subPath: "{{ .Chart.Name }}/data"
+            - name: config-root
               mountPath: /app/Logs
-              subPath: logs
-            {{- include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 12 }}
+              subPath: "{{ .Chart.Name }}/logs"
+            {{- include "service.volumeMounts" . | nindent 12 }}
       volumes:
-        - name: config
+        - name: config-root
           hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/fileflows
-            type: DirectoryOrCreate
-        {{- include "media.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" .Values.fileflows.mediaTypes) | nindent 8 }}
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+        {{- include "service.volumes" . | nindent 8 }}
