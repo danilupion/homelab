@@ -24,3 +24,19 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
+
+  - name: threadfin
+    chart: ../helm-charts/media-streaming/threadfin
+    installed: {{ and (index $values.features "media-streaming") $values.threadfin.enabled }}
+    namespace: media-streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: xteve
+    chart: ../helm-charts/media-streaming/xteve
+    installed: {{ and (index $values.features "media-streaming") $values.xteve.enabled }}
+    namespace: media-streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
