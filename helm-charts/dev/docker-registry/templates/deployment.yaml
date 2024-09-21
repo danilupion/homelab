@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-app
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      initContainers:
+        - name: create-config-dir
+          image: busybox
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          command: [ 'sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}' ]
+          volumeMounts:
+            - name: config-root
+              mountPath: /configRoot
+      containers:
+        - name: {{ .Chart.Name }}
+          image: registry:latest
+          securityContext:
+            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
+            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
+          volumeMounts:
+            - name: config-root
+              mountPath: /etc/docker/registry
+              subPath: {{ .Chart.Name }}
+            {{- include "service.volumeMounts" . | nindent 12 }}
+      volumes:
+        - name: config-root
+          hostPath:
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+        {{- include "service.volumes" . | nindent 8 }}
