@@ -8,3 +8,11 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
+
+  - name: docker-registry
+    chart: ../helm-charts/dev/docker-registry
+    installed: {{ and $values.features.dev (index $values "docker-registry" "enabled") }}
+    namespace: dev
+    createNamespace: true
+    values:
+      - ../values.yaml

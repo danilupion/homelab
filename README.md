@@ -162,6 +162,8 @@ Tool to solve Cloudflare challenges.
 
 #### renovate (based on [Renovate](https://docs.renovatebot.com/))
 
+#### docker-registry (based on [registry](https://hub.docker.com/_/registry))
+
 ### Observability
 
 #### [metrics-server](https://github.com/kubernetes-sigs/metrics-server)

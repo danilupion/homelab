@@ -39,7 +39,7 @@ features:
   media-management: true
   media-streaming: true
   tools: true
-  dev: true
+  dev: false
   observability: true
 
 # Infra applications
@@ -203,13 +203,23 @@ flaresolverr:
 
 ## Dev applications
 renovate:
-  enabled: true
+  enabled: false
   cronjob:
     enabled: true
     schedule: "@daily"
   job:
     enabled: false
   token: # Personal Access Token from github
+
+docker-registry:
+  enabled: false
+  volumes:
+    - name: storage
+      hostPath:
+        path: /storage
+  volumeMounts:
+    - name: storage
+      mountPath: /storage
 
 ## Observability applications
 metrics-server:
