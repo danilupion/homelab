@@ -181,7 +181,7 @@ kubernetes-dashboard:
 homarr:
   enabled: true
 
-homeassistant:
+home-assistant:
   enabled: true
 
 fileflows:
