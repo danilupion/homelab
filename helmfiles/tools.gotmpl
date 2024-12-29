@@ -27,7 +27,7 @@ releases:
 
   - name: home-assistant
     chart: ../helm-charts/tools/home-assistant
-    installed: {{ and $values.features.tools $values.homeassistant.enabled }}
+    installed: {{ and $values.features.tools (index $values "home-assistant" "enabled") }}
     namespace: tools
     createNamespace: true
     values:
