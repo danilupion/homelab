@@ -107,6 +107,9 @@ lidarr:
 
 readarr:
   enabled: true
+  defaultEnabled: true
+  # languages: # Optional list of languages to create a Radarr instance for each language (radar-es for example)
+  #   - es
   mediaTypes:
     - books
     - downloads

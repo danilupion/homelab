@@ -1,15 +1,22 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: readarr-service
-spec:
-  type: ClusterIP
-  selector:
-    app: readarr
-  ports:
-    {{- range .Values.readarr.ports }}
-    - name: {{ .name }}
-      port: {{ .port }}
-      targetPort: {{ .targetPort }}
-      protocol: {{ default "TCP" .protocol }}
-    {{- end }}
+{{- if (index .Values .Chart.Name "defaultEnabled") }}
+  {{- $context := merge (dict "language" nil) (deepCopy .) }}
+  {{- include "readarr.service" $context | nindent 0 }}
+{{- end }}
+
+{{- /* Ensure there's a separation between the defaultEnabled service and the language-specific service */}}
+{{- if and (index .Values .Chart.Name "defaultEnabled") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
+---
+{{- end }}
+
+{{- if and (index .Values .Chart.Name "languages") (gt (len (index .Values .Chart.Name "languages" | default list)) 0) }}
+  {{/* Capture the original context outside of the range */}}
+  {{- $rootContext := . }}
+  {{- range $index, $lang := (index .Values .Chart.Name "languages") }}
+  {{- if $index }}
+---
+  {{- end }}
+    {{/* Now merge using the captured root context, not the loop item context */}}
+    {{- $context := merge (dict "language" $lang) (deepCopy $rootContext) }}
+    {{- include "readarr.service" $context | nindent 0 }}
+  {{- end }}
+{{- end }}
