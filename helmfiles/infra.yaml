@@ -15,7 +15,7 @@ releases:
     labels:
       app: cilium
     chart: cilium/cilium
-    version: 1.16.1
+    version: 1.16.5
     namespace: kube-system
 
   - name: metallb
@@ -30,7 +30,7 @@ releases:
     labels:
       app: ingress-nginx
     chart: ingress-nginx/ingress-nginx
-    version: 4.11.2
+    version: 4.12.0
     namespace: ingress-nginx
     createNamespace: true
 
@@ -38,11 +38,12 @@ releases:
     labels:
       app: cert-manager
     chart: jetstack/cert-manager
-    version: v1.15.3
+    version: v1.16.2
     namespace: cert-manager
     createNamespace: true
     values:
-      - installCRDs: true
+      - crds:
+          enabled: true
       - extraArgs:
           - --dns01-recursive-nameservers-only
           - --dns01-recursive-nameservers=8.8.8.8:53,1.1.1.1:53
@@ -94,6 +95,6 @@ releases:
   - name: sealed-secrets
     namespace: kube-system
     chart: sealed-secrets/sealed-secrets
-    version: 2.16.1
+    version: 2.17.0
     values:
       - fullnameOverride: sealed-secrets-controller
