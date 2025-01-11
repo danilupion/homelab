@@ -12,7 +12,7 @@ releases:
       app: metrics-server
     chart: metrics-server/metrics-server
     installed: {{ and $values.features.observability (index $values "metrics-server" "enabled") }}
-    version: 3.12.1
+    version: 3.12.2
     namespace: observability
     createNamespace: true
     values:
