@@ -204,6 +204,9 @@ filebrowser:
 flaresolverr:
   enabled: true
 
+flare-bypasser:
+  enabled: true
+
 ## Dev applications
 renovate:
   enabled: false

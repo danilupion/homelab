@@ -78,6 +78,12 @@ prowlarr:
 
 #### prowlarr (based on [Prowlarr](https://prowlarr.com))
 
+Supports socks5 sidecar, creation of the secret is left to the user
+
+```shell
+kubectl create -n media-indexing secret generic prowlarr-socks5-sidecar-key --from-file=id_rsa=.ssh/id_socksuser
+```
+
 #### nzbhydra2 (based on [NZBHydra2](https://github.com/theotherp/nzbhydra2))
 
 ### Media Downloading
@@ -156,6 +162,9 @@ Probably you also want to install hacs (Home Assistant Community Store) to get m
 https://hacs.xyz/
 
 #### flaresolverr (based on [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr))
+Tool to solve Cloudflare challenges.
+
+#### flare-bypasser (based on [Flare Bypasser](https://github.com/yoori/flare-bypasser))
 Tool to solve Cloudflare challenges.
 
 ### Dev

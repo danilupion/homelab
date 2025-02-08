@@ -43,7 +43,39 @@ spec:
             - name: config-root
               mountPath: /config
               subPath: {{ .Chart.Name }}
+
+        {{- if (index .Values .Chart.Name "socks5" "enabled") }}
+        - name: socks5-sidecar
+          image: alpine:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              apk add --no-cache openssh-client && \
+              ssh -o StrictHostKeyChecking=no \
+                  -o ServerAliveInterval=60 \
+                  -i /ssh-keys/{{ (index .Values .Chart.Name "socks5" "secret-key") }} \
+                  -p {{ (index .Values .Chart.Name "socks5" "port") }} \
+                  -N -D 0.0.0.0:{{ (index .Values .Chart.Name "socks5" "port") }} \
+                  {{ (index .Values .Chart.Name "socks5" "user") }}@{{ (index .Values .Chart.Name "socks5" "host") }};
+          ports:
+            - containerPort: {{ (index .Values .Chart.Name "socks5" "port") }}
+              protocol: TCP
+              name: socks5
+          volumeMounts:
+            - name: ssh-keys
+              mountPath: /ssh-keys
+              readOnly: true
+        {{- end }}
       volumes:
         - name: config-root
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+        {{- if and (index .Values .Chart.Name "socks5" "enabled") }}
+        - name: ssh-keys
+          secret:
+            secretName: {{ (index .Values .Chart.Name "socks5" "secret") }}
+            items:
+              - key: (index .Values .Chart.Name "socks5" "secret-key")
+                path: (index .Values .Chart.Name "socks5" "secret-key")
+        {{- end }}

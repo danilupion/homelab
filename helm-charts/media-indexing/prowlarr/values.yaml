@@ -3,3 +3,10 @@ prowlarr:
     - name: http
       port: 9696
       targetPort: 9696
+  socks5:
+    enabled: false
+    user: "myuser"
+    host: "host"
+    port: 1080
+    secret: k8s-secret-name
+    secret-key: id_rsa
