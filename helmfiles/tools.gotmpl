@@ -4,7 +4,7 @@ releases:
   - name: kubernetes-dashboard
     chart: ../helm-charts/tools/kubernetes-dashboard
     installed: {{ and $values.features.tools (index $values "kubernetes-dashboard" "enabled") }}
-    namespace: kubernetes-dashboard
+    namespace: k8s-management
     createNamespace: true
     values:
       - ../values.yaml

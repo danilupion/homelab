@@ -15,7 +15,7 @@ releases:
     labels:
       app: cilium
     chart: cilium/cilium
-    version: 1.16.5
+    version: 1.17.1
     namespace: kube-system
 
   - name: metallb
