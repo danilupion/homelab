@@ -1,4 +1,8 @@
 fileflows:
+  image:
+    repository: revenz/fileflows
+    tag: 25.04
+    pullPolicy: IfNotPresent
   ports:
     - name: http
       port: 5000

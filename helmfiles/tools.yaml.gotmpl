@@ -48,11 +48,3 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
-
-  - name: flare-bypasser
-    chart: ../helm-charts/tools/flare-bypasser
-    installed: {{ and $values.features.tools (index $values "flare-bypasser" "enabled") }}
-    namespace: tools
-    createNamespace: true
-    values:
-      - ../values.yaml

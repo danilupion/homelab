@@ -1,3 +1,4 @@
+{{- $app := index .Values .Chart.Name }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +28,8 @@ spec:
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}
-          image: lscr.io/linuxserver/homeassistant:latest
+          image: "{{ $app.image.repository }}:{{ $app.image.tag }}"
+          imagePullPolicy: {{ $app.image.pullPolicy | default "IfNotPresent" }}
           env:
             - name: PUID
               value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"

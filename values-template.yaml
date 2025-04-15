@@ -178,6 +178,7 @@ kubernetes-dashboard:
 
 homarr:
   enabled: true
+  encryption-key: something secure # you can use `openssl rand -hex 32` to generate
 
 home-assistant:
   enabled: true
@@ -197,9 +198,6 @@ filebrowser:
   root: /storage
 
 flaresolverr:
-  enabled: true
-
-flare-bypasser:
   enabled: true
 
 ## Dev applications

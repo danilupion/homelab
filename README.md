@@ -152,9 +152,6 @@ https://hacs.xyz/
 #### flaresolverr (based on [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr))
 Tool to solve Cloudflare challenges.
 
-#### flare-bypasser (based on [Flare Bypasser](https://github.com/yoori/flare-bypasser))
-Tool to solve Cloudflare challenges.
-
 ### Dev
 
 #### docker-registry (based on [registry](https://hub.docker.com/_/registry))

@@ -1,4 +1,8 @@
 filebrowser:
+  image:
+    repository: filebrowser/filebrowser
+    tag: v2.32.0
+    pullPolicy: IfNotPresent
   ports:
     - name: http
       port: 8080

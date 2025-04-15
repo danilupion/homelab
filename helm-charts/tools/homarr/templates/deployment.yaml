@@ -1,3 +1,4 @@
+{{- $app := index .Values .Chart.Name }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,20 +21,22 @@ spec:
           securityContext:
             runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
             runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
-          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }}/configs && mkdir -p /configRoot/{{ .Chart.Name }}/icons && mkdir -p /configRoot/{{ .Chart.Name }}/data && chmod 700 /configRoot/{{ .Chart.Name }} -R']
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
           volumeMounts:
             - name: config-root
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}
-          image: ghcr.io/ajnart/homarr:latest
-          # Not supported currently, runs as root
+          image: "{{ $app.image.repository }}:{{ $app.image.tag }}"
+          imagePullPolicy: {{ $app.image.pullPolicy | default "IfNotPresent" }}
           securityContext:
             runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
             runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
           env:
             - name: TZ
               value: {{ required "A value for tz is required" .Values.tz | quote }}
+            - name: SECRET_ENCRYPTION_KEY
+              value: {{ required "An encryption key is required for Homarr" (index .Values .Chart.Name "encryption-key") | quote }}
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
@@ -41,14 +44,8 @@ spec:
             {{- end }}
           volumeMounts:
             - name: config-root
-              mountPath: /app/data/configs
-              subPath: "{{ .Chart.Name }}/configs"
-            - name: config-root
-              mountPath: /app/public/icons
-              subPath: "{{ .Chart.Name }}/icons"
-            - name: config-root
-              mountPath: /data
-              subPath: "{{ .Chart.Name }}/data"
+              mountPath: /appdata
+              subPath: "{{ .Chart.Name }}"
       volumes:
         - name: config-root
           hostPath:
