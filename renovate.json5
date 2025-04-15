@@ -1,11 +1,23 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  extends: ['config:best-practices'],
   "helmfile": {
     "fileMatch": [
       "(^|/)helmfiles/.*\\.ya?ml(?:\\.gotmpl)?$"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "lscr.io/linuxserver/transmission",
+        "lscr.io/linuxserver/calibre-web",
+        "lscr.io/linuxserver/overseerr"
+      ],
+      "versioning": "regex",
+      // Provide the regex pattern to extract the version
+      // This pattern captures SemVer-like tags (vX.Y.Z or X.Y.Z)
+      // and explicitly avoids those starting with 20xx.
+      "extractVersion": "^v?(?!20\\d{2}\\.)(\\d+\\.\\d+\\.\\d+)$"
+    }
+  ]
 }

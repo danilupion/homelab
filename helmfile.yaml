@@ -4,6 +4,7 @@ helmfiles:
   - path: helmfiles/downloading.yaml.gotmpl
   - path: helmfiles/indexing.yaml.gotmpl
   - path: helmfiles/media-management.yaml.gotmpl
+  - path: helmfiles/media-requests.yaml.gotmpl
   - path: helmfiles/media-streaming.yaml.gotmpl
   - path: helmfiles/tools.yaml.gotmpl
   - path: helmfiles/observability.yaml.gotmpl

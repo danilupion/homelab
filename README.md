@@ -99,6 +99,8 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 
 #### calibre-web (based on [Calibre-Web](https://github.com/janeczku/calibre-web))
 
+### Media Requests
+
 #### jellyseerr (based on [Jellyseerr](https://github.com/Fallenbagel/jellyseerr))
 
 #### overseerr (based on [Overseerr](https://overseerr.dev/))

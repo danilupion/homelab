@@ -1,5 +1,0 @@
-overseerr:
-  ports:
-    - name: http
-      port: 5056
-      targetPort: 5055
