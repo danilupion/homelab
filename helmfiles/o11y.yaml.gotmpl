@@ -11,7 +11,7 @@ releases:
     labels:
       app: metrics-server
     chart: metrics-server/metrics-server
-    installed: {{ and $values.features.observability (index $values "metrics-server" "enabled") }}
+    installed: {{ and $values.features.o11y (index $values "metrics-server" "enabled") }}
     version: 3.12.2
     namespace: o11y
     createNamespace: true
@@ -21,7 +21,7 @@ releases:
 
   - name: kube-prometheus-stack
     chart: ../helm-charts/o11y/kube-prometheus-stack
-    installed: {{ and $values.features.observability (index $values "kube-prometheus-stack" "enabled") }}
+    installed: {{ and $values.features.o11y (index $values "kube-prometheus-stack" "enabled") }}
     namespace: o11y
     createNamespace: true
     values:

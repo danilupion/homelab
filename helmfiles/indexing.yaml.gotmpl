@@ -3,7 +3,7 @@
 releases:
   - name: prowlarr
     chart: ../helm-charts/indexing/prowlarr
-    installed: {{ and (index $values.features "media-indexing") $values.prowlarr.enabled }}
+    installed: {{ and $values.features.indexing $values.prowlarr.enabled }}
     namespace: indexing
     createNamespace: true
     values:
@@ -11,7 +11,7 @@ releases:
 
   - name: nzbhydra2
     chart: ../helm-charts/indexing/nzbhydra2
-    installed: {{ and (index $values.features "media-indexing") $values.nzbhydra2.enabled }}
+    installed: {{ and $values.features.indexing $values.nzbhydra2.enabled }}
     namespace: indexing
     createNamespace: true
     values:

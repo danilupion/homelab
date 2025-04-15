@@ -115,10 +115,6 @@ For native apps in the same network you will need to set Settings -> Network -> 
 
 #### emby (based on [Emby](https://emby.media/))
 
-#### xteve (based on [xTeVe](https://xteve.de/))
-
-#### threadfin (based on [Threadfin](https://github.com/Threadfin/Threadfin))
-
 ### Tools
 
 #### [kubernetes-dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)

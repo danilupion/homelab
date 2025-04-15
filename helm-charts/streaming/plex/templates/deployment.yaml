@@ -1,3 +1,4 @@
+{{- $app := index .Values .Chart.Name }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,13 +21,14 @@ spec:
           securityContext:
             runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
             runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
-          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }}/conf && chmod -R 700 /configRoot/{{ .Chart.Name }}']
+          command: ['sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}']
           volumeMounts:
             - name: config-root
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}
-          image: fyb3roptik/threadfin:latest
+          image: "{{ $app.image.repository }}:{{ $app.image.tag }}"
+          imagePullPolicy: {{ $app.image.pullPolicy | default "IfNotPresent" }}
           env:
             - name: PUID
               value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
@@ -34,6 +36,10 @@ spec:
               value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
               value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
+            - name: VERSION
+              value: "docker"
+            - name: PLEX_CLAIM
+              value: {{.Values.plex.claim }}
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
@@ -41,10 +47,14 @@ spec:
             {{- end }}
           volumeMounts:
             - name: config-root
-              mountPath: /data/conf
-              subPath: "{{ .Chart.Name }}/conf"
+              mountPath: /config
+              subPath: {{ .Chart.Name }}
+            {{- include "media.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 12 }}
+            {{- include "service.volumeMounts" . | nindent 12 }}
       volumes:
         - name: config-root
           hostPath:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+        {{- include "media.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 8 }}
+        {{- include "service.volumes" . | nindent 8 }}
 

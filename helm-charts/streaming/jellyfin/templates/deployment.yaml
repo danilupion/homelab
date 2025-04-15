@@ -1,3 +1,4 @@
+{{- $app := index .Values .Chart.Name }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +27,8 @@ spec:
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}
-          image: lscr.io/linuxserver/plex:latest
+          image: "{{ $app.image.repository }}:{{ $app.image.tag }}"
+          imagePullPolicy: {{ $app.image.pullPolicy | default "IfNotPresent" }}
           env:
             - name: PUID
               value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
@@ -34,10 +36,6 @@ spec:
               value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
               value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
-            - name: VERSION
-              value: "docker"
-            - name: PLEX_CLAIM
-              value: {{.Values.plex.claim }}
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
@@ -55,4 +53,3 @@ spec:
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
         {{- include "media.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 8 }}
         {{- include "service.volumes" . | nindent 8 }}
-

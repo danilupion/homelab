@@ -1,0 +1,10 @@
+plex:
+  image:
+    repository: lscr.io/linuxserver/plex
+    tag: 1.41.6
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 32400
+      targetPort: 32400
+  claim:

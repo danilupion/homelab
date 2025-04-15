@@ -3,7 +3,7 @@
 releases:
   - name: jellyseerr
     chart: ../helm-charts/media-requests/jellyseerr
-    installed: {{ and (index $values.features "media-management") $values.jellyseerr.enabled }}
+    installed: {{ and (index $values.features "media-requests") $values.jellyseerr.enabled }}
     namespace: media-requests
     createNamespace: true
     values:
@@ -11,7 +11,7 @@ releases:
 
   - name: overseerr
     chart: ../helm-charts/media-requests/overseerr
-    installed: {{ and (index $values.features "media-management") $values.overseerr.enabled }}
+    installed: {{ and (index $values.features "media-requests") $values.overseerr.enabled }}
     namespace: media-requests
     createNamespace: true
     values:

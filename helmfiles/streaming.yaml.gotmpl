@@ -1,0 +1,26 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
+releases:
+  - name: jellyfin
+    chart: ../helm-charts/streaming/jellyfin
+    installed: {{ and $values.features.streaming $values.jellyfin.enabled }}
+    namespace: streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: plex
+    chart: ../helm-charts/streaming/plex
+    installed: {{ and $values.features.streaming $values.plex.enabled }}
+    namespace: streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: emby
+    chart: ../helm-charts/streaming/emby
+    installed: {{ and $values.features.streaming $values.emby.enabled }}
+    namespace: streaming
+    createNamespace: true
+    values:
+      - ../values.yaml

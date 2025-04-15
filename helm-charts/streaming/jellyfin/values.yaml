@@ -1,4 +1,8 @@
 jellyfin:
+  image:
+    repository: lscr.io/linuxserver/jellyfin
+    tag: 10.10.7
+    pullPolicy: IfNotPresent
   ports:
     - name: http
       port: 8096

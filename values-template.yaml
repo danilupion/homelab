@@ -37,10 +37,11 @@ features:
   downloading: true
   indexing: true
   media-management: true
-  media-streaming: true
+  media-requests: true
+  streaming: true
   tools: true
-  dev: false
-  observability: true
+  dev: true
+  o11y: true
 
 # Infra applications
 letsencrypt:
@@ -170,12 +171,6 @@ emby:
     - sports
     - music
     - downloads
-
-xteve:
-  enabled: true
-
-threadfin:
-  enabled: true
 
 ## Tools applications
 kubernetes-dashboard:
