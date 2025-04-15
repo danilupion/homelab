@@ -1,14 +1,5 @@
 {{- $values := readFile "../values.yaml" | fromYaml -}}
 
-releases:
-  - name: renovate
-    chart: ../helm-charts/dev/renovate
-    installed: {{ and $values.features.dev $values.renovate.enabled }}
-    namespace: dev
-    createNamespace: true
-    values:
-      - ../values.yaml
-
   - name: docker-registry
     chart: ../helm-charts/dev/docker-registry
     installed: {{ and $values.features.dev (index $values "docker-registry" "enabled") }}

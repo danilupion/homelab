@@ -159,8 +159,6 @@ Tool to solve Cloudflare challenges.
 
 ### Dev
 
-#### renovate (based on [Renovate](https://docs.renovatebot.com/))
-
 #### docker-registry (based on [registry](https://hub.docker.com/_/registry))
 
 ### Observability
