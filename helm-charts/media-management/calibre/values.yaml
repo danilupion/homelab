@@ -1,7 +1,7 @@
 calibre:
   image:
     repository: lscr.io/linuxserver/calibre
-    tag: 8.2.100
+    tag: 8.2.100@sha256:0b4d127ec02999fac6c3c3fc34745510daa3d6537f3999c8ca56b6956a215879
     pullPolicy: IfNotPresent
   puid: 1000
   guid: 1000

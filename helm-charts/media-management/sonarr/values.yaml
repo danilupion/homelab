@@ -1,7 +1,7 @@
 sonarr:
   image:
     repository: lscr.io/linuxserver/sonarr
-    tag: 4.0.14
+    tag: 4.0.14@sha256:5c6e66c36fd0afe1323b3478b2289b5bff6e9ff17ee2c315feee29316ddb9140
     pullPolicy: IfNotPresent
   ports:
     - name: http
