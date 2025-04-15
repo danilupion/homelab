@@ -1,3 +1,4 @@
+{{- $app := index .Values .Chart.Name }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +27,8 @@ spec:
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}
-          image: lscr.io/linuxserver/transmission:latest
+          image: "{{ $app.image.repository }}:{{ $app.image.tag }}"
+          imagePullPolicy: {{ $app.image.pullPolicy | default "IfNotPresent" }}
           env:
             - name: PUID
               value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"
@@ -34,15 +36,6 @@ spec:
               value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
               value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
-            - name: TRANSMISSION_WEB_HOME
-              value: {{ index .Values .Chart.Name "webHome" | quote }}
-            - name: USER
-              value: {{ required "A value for user is required" (index .Values .Chart.Name "user") | quote }}
-            - name: PASS
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Chart.Name }}-password-secret
-                  key: password
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}

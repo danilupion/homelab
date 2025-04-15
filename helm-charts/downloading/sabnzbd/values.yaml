@@ -1,0 +1,9 @@
+sabnzbd:
+  image:
+    repository: lscr.io/linuxserver/sabnzbd
+    tag: 4.5.1
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

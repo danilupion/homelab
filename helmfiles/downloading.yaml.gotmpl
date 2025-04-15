@@ -2,17 +2,17 @@
 
 releases:
   - name: transmission
-    chart: ../helm-charts/media-downloading/transmission
+    chart: ../helm-charts/downloading/transmission
     installed: {{ and (index $values.features "media-downloading") $values.transmission.enabled }}
-    namespace: media-downloading
+    namespace: downloading
     createNamespace: true
     values:
       - ../values.yaml
 
   - name: sabnzbd
-    chart: ../helm-charts/media-downloading/sabnzbd
+    chart: ../helm-charts/downloading/sabnzbd
     installed: {{ and (index $values.features "media-downloading") $values.sabnzbd.enabled }}
-    namespace: media-downloading
+    namespace: downloading
     createNamespace: true
     values:
       - ../values.yaml
