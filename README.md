@@ -21,11 +21,11 @@ install-homelab.sh
 ```
 
 #### Versions
-- [cilium](https://cilium.io/): 1.17.2
-- [metallb](https://metallb.universe.tf/): 0.14.8
-- [cert-manager](https://cert-manager.io/): v1.16.2
-- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.12.0
-- [sealed-secrets](https://sealed-secrets.netlify.app/): 2.17.0
+- [cilium](https://cilium.io/): 1.17.3
+- [metallb](https://metallb.universe.tf/): 0.14.9
+- [cert-manager](https://cert-manager.io/): v1.17.1
+- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.12.1
+- [sealed-secrets](https://sealed-secrets.netlify.app/): 2.17.2
 
 ## Update (configuration)
 
