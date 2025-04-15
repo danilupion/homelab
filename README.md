@@ -4,19 +4,9 @@ A collection of k8s stacks to run a homelab.
 
 ## Installation
 
-### Single Node K8S Cluster
-On the server run the following file to install a single node k8s cluster. It has been tested on Ubuntu 22.04
-
-```bash
-install-k8s-cluster.sh
-```
-
-#### Versions
-- k8s: 1.29.2-1.1
-
 ### Homelab
 
-Once k8s credentials are available use them (.kube config file) make a copy of values-template.yaml and update the file with proper values.
+Mke a copy of values-template.yaml and update the file with proper values.
 
 *Note*: bash 4.0 or higher is required to run the following commands.
 
@@ -31,11 +21,11 @@ install-homelab.sh
 ```
 
 #### Versions
-- [cilium](https://cilium.io/): 1.14.7
-- [metallb](https://metallb.universe.tf/): 0.14.3
-- [cert-manager](https://cert-manager.io/): 1.14.3
-- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.10.0
-- [sealed-secrets](https://sealed-secrets.netlify.app/): 2.15.2
+- [cilium](https://cilium.io/): 1.17.2
+- [metallb](https://metallb.universe.tf/): 0.14.8
+- [cert-manager](https://cert-manager.io/): v1.16.2
+- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/): 4.12.0
+- [sealed-secrets](https://sealed-secrets.netlify.app/): 2.17.0
 
 ## Update (configuration)
 

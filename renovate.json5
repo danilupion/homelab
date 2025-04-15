@@ -2,5 +2,10 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ]
+  ],
+  "helmfile": {
+    "fileMatch": [
+      "(^|/)helmfiles/.*\\.ya?ml(?:\\.gotmpl)?$"
+    ]
+  }
 }

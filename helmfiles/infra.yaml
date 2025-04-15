@@ -15,8 +15,11 @@ releases:
     labels:
       app: cilium
     chart: cilium/cilium
-    version: 1.17.1
+    version: 1.17.2
     namespace: kube-system
+    set:
+      - name: operator.replicas
+        value: 1
 
   - name: metallb
     labels:
