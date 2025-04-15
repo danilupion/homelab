@@ -1,0 +1,9 @@
+nzbhydra2:
+  image:
+    repository: lscr.io/linuxserver/nzbhydra2
+    tag: 7.12.3
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 5076
+      targetPort: 5076

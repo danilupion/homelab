@@ -1,5 +1,0 @@
-nzbhydra2:
-  ports:
-    - name: http
-      port: 5076
-      targetPort: 5076

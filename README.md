@@ -64,19 +64,19 @@ prowlarr:
 
 #### cert-manager-letsencrypt-cloudflare (Cluster issuer for Let's Encrypt with DNS-01 challenge using Cloudflare)
 
-### Media Indexing
+### Indexing
 
 #### prowlarr (based on [Prowlarr](https://prowlarr.com))
 
 Supports socks5 sidecar, creation of the secret is left to the user
 
 ```shell
-kubectl create -n media-indexing secret generic prowlarr-socks5-sidecar-key --from-file=id_rsa=.ssh/id_socksuser
+kubectl create -n indexing secret generic prowlarr-socks5-sidecar-key --from-file=id_rsa=.ssh/id_socksuser
 ```
 
 #### nzbhydra2 (based on [NZBHydra2](https://github.com/theotherp/nzbhydra2))
 
-### Media Downloading
+### Downloading
 
 #### transmission (based on [Transmission](https://transmissionbt.com/))
 
