@@ -7,4 +7,4 @@ helmfiles:
   - path: helmfiles/media-requests.yaml.gotmpl
   - path: helmfiles/media-streaming.yaml.gotmpl
   - path: helmfiles/tools.yaml.gotmpl
-  - path: helmfiles/observability.yaml.gotmpl
+  - path: helmfiles/o11y.yaml.gotmpl

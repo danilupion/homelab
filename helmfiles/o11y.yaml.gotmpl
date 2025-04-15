@@ -13,16 +13,16 @@ releases:
     chart: metrics-server/metrics-server
     installed: {{ and $values.features.observability (index $values "metrics-server" "enabled") }}
     version: 3.12.2
-    namespace: observability
+    namespace: o11y
     createNamespace: true
     values:
       - args:
         - --kubelet-insecure-tls=true
 
   - name: kube-prometheus-stack
-    chart: ../helm-charts/observability/kube-prometheus-stack
+    chart: ../helm-charts/o11y/kube-prometheus-stack
     installed: {{ and $values.features.observability (index $values "kube-prometheus-stack" "enabled") }}
-    namespace: observability
+    namespace: o11y
     createNamespace: true
     values:
     - ../values.yaml
