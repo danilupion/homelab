@@ -1,0 +1,9 @@
+overseerr:
+  image:
+    repository: lscr.io/linuxserver/overseerr
+    tag: 1.34.0
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 5056
+      targetPort: 5055

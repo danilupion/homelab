@@ -1,4 +1,8 @@
 lidarr:
+  image:
+    repository: lscr.io/linuxserver/lidarr
+    tag: 2.10.3
+    pullPolicy: IfNotPresent
   ports:
     - name: http
       port: 8686

@@ -1,4 +1,8 @@
 bazarr:
+  image:
+    repository: lscr.io/linuxserver/bazarr
+    tag: 1.5.1
+    pullPolicy: IfNotPresent
   ports:
     - name: http
       port: 6767

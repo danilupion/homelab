@@ -3,6 +3,7 @@ Create Readarr deployment
 */}}
 {{- define "readarr.deployment" -}}
 {{- $lang := default "default" .language -}}
+{{- $app := index .Values .Chart.Name }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,7 +35,8 @@ spec:
               mountPath: /configRoot
       containers:
         - name: {{ .Chart.Name }}{{- if ne $lang "default" }}-{{ $lang }}{{- end }}
-          image: lscr.io/linuxserver/readarr:develop
+          image: "{{ $app.image.repository }}:{{ $app.image.tag }}"
+          imagePullPolicy: {{ $app.image.pullPolicy | default "IfNotPresent" }}
           env:
             - name: PUID
               value: "{{ include "service.value" (dict "context" . "prop" "uid") | int }}"

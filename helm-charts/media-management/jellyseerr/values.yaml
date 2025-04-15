@@ -1,5 +1,0 @@
-jellyseerr:
-  ports:
-    - name: http
-      port: 5055
-      targetPort: 5055
