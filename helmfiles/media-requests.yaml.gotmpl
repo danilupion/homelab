@@ -1,0 +1,18 @@
+{{- $values := readFile "../values.yaml" | fromYaml -}}
+
+releases:
+  - name: jellyseerr
+    chart: ../helm-charts/media-requests/jellyseerr
+    installed: {{ and (index $values.features "media-management") $values.jellyseerr.enabled }}
+    namespace: media-requests
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: overseerr
+    chart: ../helm-charts/media-requests/overseerr
+    installed: {{ and (index $values.features "media-management") $values.overseerr.enabled }}
+    namespace: media-requests
+    createNamespace: true
+    values:
+      - ../values.yaml

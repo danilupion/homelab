@@ -1,4 +1,8 @@
 readarr:
+  image:
+    repository: lscr.io/linuxserver/readarr
+    tag: 0.4.14-develop
+    pullPolicy: IfNotPresent
   ports:
     - name: http
       port: 8787

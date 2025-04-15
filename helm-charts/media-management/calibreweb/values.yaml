@@ -1,5 +1,9 @@
 tz: Europe/Madrid
 calibreweb:
+  image:
+    repository: lscr.io/linuxserver/calibre-web
+    tag: 0.6.24
+    pullPolicy: IfNotPresent
   puid: 1000
   guid: 1000
   ports:

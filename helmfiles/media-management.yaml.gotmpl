@@ -56,19 +56,3 @@ releases:
     createNamespace: true
     values:
       - ../values.yaml
-
-  - name: jellyseerr
-    chart: ../helm-charts/media-management/jellyseerr
-    installed: {{ and (index $values.features "media-management") $values.jellyseerr.enabled }}
-    namespace: media-management
-    createNamespace: true
-    values:
-      - ../values.yaml
-
-  - name: overseerr
-    chart: ../helm-charts/media-management/overseerr
-    installed: {{ and (index $values.features "media-management") $values.overseerr.enabled }}
-    namespace: media-management
-    createNamespace: true
-    values:
-      - ../values.yaml
