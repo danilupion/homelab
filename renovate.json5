@@ -24,12 +24,31 @@
     },
     {
       matchPackageNames: [
-        'lscr.io/linuxserver/transmission',
         'lscr.io/linuxserver/calibre-web',
+        'lscr.io/linuxserver/jellyfin',
         'lscr.io/linuxserver/overseerr',
+        'lscr.io/linuxserver/transmission'
       ],
       versioning: 'regex',
       extractVersion: '^v?(?!20\\d{2}\\.)(\\d+\\.\\d+\\.\\d+)$',
     },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": [
+        "lscr.io/linuxserver/emby"
+      ],
+      // Only allow SemVer tags that start with 4.x or another expected major
+      "allowedVersions": ">=4.0.0 <5.0.0",
+      "versioning": "semver"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": [
+        "lscr.io/linuxserver/lidarr"
+      ],
+      // Only allow SemVer tags that start with 2.x or another expected major
+      "allowedVersions": ">=2.0.0 <3.0.0",
+      "versioning": "semver"
+    }
   ],
 }
