@@ -8,6 +8,13 @@
   },
   "packageRules": [
     {
+      "matchDatasources": ["docker"],
+      "matchPackagePrefixes": ["lscr.io/linuxserver/"],
+      "groupName": "linuxserver image digests",
+      "matchUpdateTypes": ["digest"],
+      "automerge": true
+    },
+    {
       "matchPackageNames": [
         "lscr.io/linuxserver/transmission",
         "lscr.io/linuxserver/calibre-web",
