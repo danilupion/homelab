@@ -13,24 +13,24 @@ paths:
     #   path: /mnt/Downloads
     movies:
     # - name: movies1
-    #   path: /mnt/Movies1
+    #   path: /mnt/movies1
     #   localize: true
     # - name: movies2
-    #   path: /mnt/Movies2
+    #   path: /mnt/movies2
     #   localize: true
-    tv-shows:
-    # - name: tv-shows
-    #   path: /mnt/TvShows
+    tv:
+    # - name: tv
+    #   path: /mnt/tv
     #   localize: true
     music:
     # - name: music1
-    #   path: /mnt/Music
+    #   path: /mnt/music
     sports:
     # - name: sports1
-    #   path: /mnt/Sports
+    #   path: /mnt/sports
     books:
     # - name: books1
-    #   path: /mnt/Books
+    #   path: /mnt/books
 
 # Features to enable
 features:
@@ -56,10 +56,20 @@ cloudflare:
 
 ## Media Downloading applications
 transmission:
-  enabled: true
+  enabled: false
   user:
   password:
   webHome: #Optional alternative web interface (needs to be manually installed inside transmission config folder and the value you gat is someting like /config/flood-for-transmission eg: https://github.com/johman10/flood-for-transmission)
+  mediaTypes:
+    - downloads
+
+deluge:
+  enabled: false
+  mediaTypes:
+    - downloads
+
+qbittorrent:
+  enabled: false
   mediaTypes:
     - downloads
 
@@ -91,14 +101,14 @@ sonarr:
 # languages: # Optional list of languages to create a Sonarr instance for each language (radar-es for example)
 #   - es
   mediaTypes:
-    - tv-shows
+    - tv
     - downloads
 
 bazarr:
   enabled: true
   mediaTypes:
     - movies
-    - tv-shows
+    - tv
 
 lidarr:
   enabled: true
@@ -144,7 +154,7 @@ jellyfin:
 #   - es
   mediaTypes:
     - movies
-    - tv-shows
+    - tv
     - sports
     - music
     - downloads
@@ -156,7 +166,7 @@ plex:
 #   - es
   mediaTypes:
     - movies
-    - tv-shows
+    - tv
     - sports
     - music
     - downloads
@@ -167,7 +177,7 @@ emby:
   #   - es
   mediaTypes:
     - movies
-    - tv-shows
+    - tv
     - sports
     - music
     - downloads

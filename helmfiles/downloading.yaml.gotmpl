@@ -1,6 +1,22 @@
 {{- $values := readFile "../values.yaml" | fromYaml -}}
 
 releases:
+  - name: deluge
+    chart: ../helm-charts/downloading/deluge
+    installed: {{ and $values.features.downloading $values.deluge.enabled }}
+    namespace: downloading
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: qbittorrent
+    chart: ../helm-charts/downloading/qbittorrent
+    installed: {{ and $values.features.downloading $values.qbittorrent.enabled }}
+    namespace: downloading
+    createNamespace: true
+    values:
+      - ../values.yaml
+
   - name: transmission
     chart: ../helm-charts/downloading/transmission
     installed: {{ and $values.features.downloading $values.transmission.enabled }}

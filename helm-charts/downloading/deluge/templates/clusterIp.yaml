@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-service-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Chart.Name }}
+  ports:
+    {{- range (index .Values .Chart.Name "internal-ports") }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+    {{- end }}

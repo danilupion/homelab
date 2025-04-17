@@ -1,0 +1,19 @@
+qbittorrent:
+  image:
+    repository: lscr.io/linuxserver/qbittorrent
+    tag: 5.0.4
+    pullPolicy: IfNotPresent
+  internal-ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  external-ports:
+    - name: torrent-tcp
+      port: 31415
+      targetPort: 31415
+      nodePort: 31415
+    - name: torrent-udp
+      port: 31415
+      targetPort: 31415
+      protocol: UDP
+      nodePort: 31415

@@ -1,0 +1,19 @@
+# This NodePort is so that torrent port can be port forwarded (NAT).
+# You just need to nat to any of the worker nodes on port (by default 31413, because of k8s
+# limitations -normally 30000 to 32767).
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}-service-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: {{ .Chart.Name }}
+  ports:
+    {{- range (index .Values .Chart.Name "external-ports") }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ default "TCP" .protocol }}
+      nodePort: {{ .nodePort }}
+    {{- end }}
