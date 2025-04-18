@@ -1,7 +1,7 @@
 qbittorrent:
   image:
     repository: lscr.io/linuxserver/qbittorrent
-    tag: 5.0.4@sha256:90a82ca3ad221a8df88f245aec649f0c10b83109dfdacec14fb33e345e605560
+    tag: 14.3.9@sha256:751f377e7bcfe8e7aee1d219049720690510f488bba649f8ceffcd911e83d908
     pullPolicy: IfNotPresent
   internal-ports:
     - name: http
