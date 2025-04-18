@@ -82,6 +82,8 @@ kubectl create -n indexing secret generic prowlarr-socks5-sidecar-key --from-fil
 
 #### deluge (based on [Deluge](https://deluge-torrent.org/))
 
+#### qbittorent (based on [Qbittorrent](https://www.qbittorrent.org/))
+
 #### sabnzbd (based on [SABnzbd](https://sabnzbd.org/))
 You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname-check.html
 
