@@ -1,0 +1,9 @@
+dash:
+  image:
+    repository: mauricenino/dashdot
+    tag: 6.0.0
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 3001
+      targetPort: 3001

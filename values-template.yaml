@@ -230,7 +230,7 @@ docker-registry:
     - name: storage
       mountPath: /storage
 
-## Observability applications
+## Observability (o11y) applications
 metrics-server:
   enabled: true
 
@@ -239,3 +239,6 @@ kube-prometheus-stack:
   grafana:
     adminUser: "admin"
     adminPassword: # Password for the admin user
+
+dash:
+  enabled: true

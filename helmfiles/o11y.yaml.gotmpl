@@ -27,3 +27,11 @@ releases:
     values:
     - ../values.yaml
 
+  - name: dash
+    chart: ../helm-charts/o11y/dash
+    installed: {{ and $values.features.o11y $values.dash.enabled }}
+    namespace: o11y
+    createNamespace: true
+    values:
+    - ../values.yaml
+
