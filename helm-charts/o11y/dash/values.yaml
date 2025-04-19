@@ -1,7 +1,7 @@
 dash:
   image:
     repository: mauricenino/dashdot
-    tag: 6.0.0
+    tag: 6.0.0@sha256:23ed969120678ed0520479a94288c0c18351047c2975a07bc095a10212480d86
     pullPolicy: IfNotPresent
   ports:
     - name: http
