@@ -210,16 +210,6 @@ filebrowser:
 flaresolverr:
   enabled: true
 
-## Dev applications
-renovate:
-  enabled: false
-  cronjob:
-    enabled: true
-    schedule: "@daily"
-  job:
-    enabled: false
-  token: # Personal Access Token from github
-
 docker-registry:
   enabled: false
   volumes:
@@ -242,3 +232,15 @@ kube-prometheus-stack:
 
 dash:
   enabled: true
+  env:
+    - name: DASHDOT_ENABLE_CPU_TEMPS
+      value: "true"
+    - name: DASHDOT_OVERRIDE_STORAGE_NAMES
+      value: >-
+        {
+          "/dev/sda": "Main SSD",
+          "/dev/sdb": "Media Drive",
+          "/dev/sdc": "Backup",
+          "/dev/sdd": "Game Drive",
+          "/dev/sde": "External"
+        }
