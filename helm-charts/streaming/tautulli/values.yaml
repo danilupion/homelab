@@ -1,7 +1,7 @@
 tautulli:
   image:
     repository: lscr.io/linuxserver/tautulli
-    tag: 2.15.2@sha256:3fd7e7b3f325e30d6efb1f1aaef6d1383fd792b4eddbd136441d0bce234ba1cb
+    tag: 2021.12.16@sha256:9ba07aaddb8e2e7a6283eb8231dfd900f2d7dda38d70ec60fe7f5000a2dc0906@sha256:3fd7e7b3f325e30d6efb1f1aaef6d1383fd792b4eddbd136441d0bce234ba1cb
     pullPolicy: IfNotPresent
   ports:
     - name: http
