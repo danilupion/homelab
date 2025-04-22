@@ -27,7 +27,8 @@
         'lscr.io/linuxserver/calibre-web',
         'lscr.io/linuxserver/jellyfin',
         'lscr.io/linuxserver/overseerr',
-        'lscr.io/linuxserver/transmission'
+        'lscr.io/linuxserver/transmission',
+        'lscr.io/linuxserver/tautilli'
       ],
       versioning: 'regex',
       extractVersion: '^v?(?!20\\d{2}\\.)(\\d+\\.\\d+\\.\\d+)$',

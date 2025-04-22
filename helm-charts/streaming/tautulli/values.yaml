@@ -1,0 +1,9 @@
+tautulli:
+  image:
+    repository: lscr.io/linuxserver/tautulli
+    tag: 2.15.2
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 8181
+      targetPort: 8181

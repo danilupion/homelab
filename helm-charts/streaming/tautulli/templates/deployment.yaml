@@ -33,11 +33,6 @@ spec:
               value: "{{ include "service.value" (dict "context" . "prop" "gid") | int }}"
             - name: TZ
               value: {{ include "service.value" (dict "context" . "prop" "tz") | quote }}
-            - name: WEBUI_PORT
-              value: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name "internal-ports") "portName" "http") | quote }}
-            - name: TORRENTING_PORT
-              value: {{ include "utils.portByName" (dict "ports" (index .Values .Chart.Name "external-ports") "portName" "torrent-tcp") | quote }}
-
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
@@ -46,12 +41,13 @@ spec:
           volumeMounts:
             - name: config-root
               mountPath: /config
-            {{- include "media.volumeMounts" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 12 }}
+            {{- include "media.volumeMounts-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 12 }}
             {{- include "service.volumeMounts" . | nindent 12 }}
       volumes:
         - name: config-root
           hostPath:
             type: DirectoryOrCreate
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/{{ .Chart.Name }}
-        {{- include "media.volumes" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 8 }}
+        {{- include "media.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 8 }}
         {{- include "service.volumes" . | nindent 8 }}
+

@@ -148,6 +148,17 @@ overseerr:
 #   - es
 
 ## Media Streaming applications
+emby:
+  enabled: false
+  # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
+  #   - es
+  mediaTypes:
+    - movies
+    - tv
+    - sports
+    - music
+    - downloads
+
 jellyfin:
   enabled: true
 # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
@@ -171,16 +182,8 @@ plex:
     - music
     - downloads
 
-emby:
-  enabled: false
-  # extraMediaLanguages: # Optional list of language suffixes to mount media volumes
-  #   - es
-  mediaTypes:
-    - movies
-    - tv
-    - sports
-    - music
-    - downloads
+tautulli:
+  enabled: true
 
 ## Tools applications
 kubernetes-dashboard:

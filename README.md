@@ -111,13 +111,15 @@ You probably want to have a look at this https://sabnzbd.org/wiki/extra/hostname
 
 ### Media Streaming
 
+#### emby (based on [Emby](https://emby.media/))
+
 #### jellyfin (based on [Jellyfin](https://jellyfin.org/))
 Once installed go to https://jellyfin.yourdomain/web/#/wizardstart.html to configure the server.
 
 #### plex (based on [Plex Media Server](https://www.plex.tv/))
 For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to something like `https://plex.yourdomain.tld`
 
-#### emby (based on [Emby](https://emby.media/))
+#### Tautilli (based on [Tautilli](https://github.com/Tautulli/Tautulli))
 
 ### Tools
 
