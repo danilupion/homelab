@@ -1,0 +1,10 @@
+synclounge:
+  image:
+    repository: lscr.io/linuxserver/synclounge
+    tag: 5.2.35
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 8088
+      targetPort: 8088
+  auth-list: ""

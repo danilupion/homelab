@@ -119,7 +119,9 @@ Once installed go to https://jellyfin.yourdomain/web/#/wizardstart.html to confi
 #### plex (based on [Plex Media Server](https://www.plex.tv/))
 For native apps in the same network you will need to set Settings -> Network -> Custom server access URLs to something like `https://plex.yourdomain.tld`
 
-#### Tautilli (based on [Tautilli](https://github.com/Tautulli/Tautulli))
+#### synclounge (based on [Synclounge](https://synclounge.com/))
+
+#### tautilli (based on [Tautilli](https://github.com/Tautulli/Tautulli))
 
 ### Tools
 

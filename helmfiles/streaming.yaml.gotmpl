@@ -25,6 +25,14 @@ releases:
     values:
       - ../values.yaml
 
+  - name: synclounge
+    chart: ../helm-charts/streaming/synclounge
+    installed: {{ and $values.features.streaming $values.synclounge.enabled }}
+    namespace: streaming
+    createNamespace: true
+    values:
+      - ../values.yaml
+
   - name: tautulli
     chart: ../helm-charts/streaming/tautulli
     installed: {{ and $values.features.streaming $values.tautulli.enabled }}

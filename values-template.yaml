@@ -182,6 +182,10 @@ plex:
     - music
     - downloads
 
+synclounge:
+  enabled: true
+  # auth-list: plexuser1,plexuser2,email1,machineid1 # optional
+
 tautulli:
   enabled: true
 
