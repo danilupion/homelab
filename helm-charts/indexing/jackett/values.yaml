@@ -1,0 +1,16 @@
+jackett:
+  image:
+    repository: lscr.io/linuxserver/jackett
+    tag: 0.22.1828
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 9117
+      targetPort: 9117
+  socks5:
+    enabled: false
+    user: "myuser"
+    host: "host"
+    port: 1080
+    secret: k8s-secret-name
+    secret-key: id_rsa

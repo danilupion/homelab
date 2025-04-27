@@ -79,6 +79,9 @@ sabnzbd:
     - downloads
 
 ## Media Indexing applications
+jackett:
+  enabled: true
+
 prowlarr:
   enabled: true
 

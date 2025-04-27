@@ -1,6 +1,14 @@
 {{- $values := readFile "../values.yaml" | fromYaml -}}
 
 releases:
+  - name: jackett
+    chart: ../helm-charts/indexing/jackett
+    installed: {{ and $values.features.indexing $values.jackett.enabled }}
+    namespace: indexing
+    createNamespace: true
+    values:
+      - ../values.yaml
+
   - name: prowlarr
     chart: ../helm-charts/indexing/prowlarr
     installed: {{ and $values.features.indexing $values.prowlarr.enabled }}

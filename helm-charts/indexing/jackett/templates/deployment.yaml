@@ -41,11 +41,36 @@ spec:
           volumeMounts:
             - name: config-root
               mountPath: /config
+        {{- if (index .Values .Chart.Name "socks5" "enabled") }}
+        - name: socks5-sidecar
+          image: alpine:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              apk add --no-cache openssh-client && \
+              mkdir -p /root/.ssh && \
+              cp /ssh-keys/{{ (index .Values .Chart.Name "socks5" "secret-key") }} /root/.ssh/id_rsa && \
+              chmod 600 /root/.ssh/id_rsa && \
+              ssh -o StrictHostKeyChecking=no \
+                  -o ServerAliveInterval=60 \
+                  -N -D 0.0.0.0:{{ (index .Values .Chart.Name "socks5" "port") }} \
+                  {{ (index .Values .Chart.Name "socks5" "user") }}@{{ (index .Values .Chart.Name "socks5" "host") }};
+          volumeMounts:
+            - name: ssh-keys
+              mountPath: /ssh-keys
+              readOnly: true
+        {{- end }}
       volumes:
         - name: config-root
           hostPath:
             type: DirectoryOrCreate
             path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/{{ .Chart.Name }}
-        {{- include "media.volumes-localized" (dict "mediaPaths" .Values.paths.mediaPaths "mediaTypes" (index .Values .Chart.Name "mediaTypes") "extraMediaLanguages" (index .Values .Chart.Name "extraMediaLanguages")) | nindent 8 }}
-        {{- include "service.volumes" . | nindent 8 }}
-
+        {{- if and (index .Values .Chart.Name "socks5" "enabled") }}
+        - name: ssh-keys
+          secret:
+            secretName: {{ (index .Values .Chart.Name "socks5" "secret") }}
+            items:
+              - key: {{ (index .Values .Chart.Name "socks5" "secret-key") }}
+                path: {{ (index .Values .Chart.Name "socks5" "secret-key") }}
+        {{- end }}

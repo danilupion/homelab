@@ -66,7 +66,9 @@ prowlarr:
 
 ### Indexing
 
-#### prowlarr (based on [Prowlarr](https://prowlarr.com))
+#### [Jackett](https://github.com/Jackett/Jackett)
+
+#### [Prowlarr](https://prowlarr.com)
 
 Supports socks5 sidecar, creation of the secret is left to the user
 
