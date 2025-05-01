@@ -220,6 +220,11 @@ filebrowser:
 flaresolverr:
   enabled: true
 
+n8n:
+  enabled: true
+
+# DEV
+
 docker-registry:
   enabled: false
   volumes:

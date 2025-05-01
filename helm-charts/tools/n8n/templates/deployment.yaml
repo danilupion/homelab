@@ -30,10 +30,10 @@ spec:
             runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
             runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
           env:
+            - name: GENERIC_TIMEZONE
+              value: {{ required "A value for tz is required" .Values.tz | quote }}
             - name: TZ
               value: {{ required "A value for tz is required" .Values.tz | quote }}
-            - name: SECRET_ENCRYPTION_KEY
-              value: {{ required "An encryption key is required for Homarr" (index .Values .Chart.Name "encryption-key") | quote }}
           ports:
             {{- range (index .Values .Chart.Name).ports }}
             - containerPort: {{ .port }}
@@ -41,7 +41,7 @@ spec:
             {{- end }}
           volumeMounts:
             - name: config-root
-              mountPath: /appdata
+              mountPath: /home/node/.n8n
       volumes:
         - name: config-root
           hostPath:

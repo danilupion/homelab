@@ -1,0 +1,9 @@
+n8n:
+  image:
+    repository: docker.n8n.io/n8nio/n8n
+    tag: 1.90.2
+    pullPolicy: IfNotPresent
+  ports:
+    - name: http
+      port: 5678
+      targetPort: 5678

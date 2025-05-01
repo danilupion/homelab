@@ -148,6 +148,8 @@ This you can use as .filebrowser.json
 
 #### home-assistant (based on [Home Assistant](https://www.home-assistant.io/))
 
+#### [N8n](https://n8n.io/)
+
 The following will be needed in the configuration.yaml file for Home Assistant to work with the ingress-nginx ([more info](https://www.home-assistant.io/integrations/http#reverse-proxies)):
 ```yaml
 http:

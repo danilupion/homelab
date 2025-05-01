@@ -17,17 +17,17 @@ releases:
     values:
       - ../values.yaml
 
-  - name: fileflows
-    chart: ../helm-charts/tools/fileflows
-    installed: {{ and $values.features.tools $values.fileflows.enabled }}
+  - name: home-assistant
+    chart: ../helm-charts/tools/home-assistant
+    installed: {{ and $values.features.tools (index $values "home-assistant" "enabled") }}
     namespace: tools
     createNamespace: true
     values:
       - ../values.yaml
 
-  - name: home-assistant
-    chart: ../helm-charts/tools/home-assistant
-    installed: {{ and $values.features.tools (index $values "home-assistant" "enabled") }}
+  - name: fileflows
+    chart: ../helm-charts/tools/fileflows
+    installed: {{ and $values.features.tools $values.fileflows.enabled }}
     namespace: tools
     createNamespace: true
     values:
@@ -44,6 +44,14 @@ releases:
   - name: flaresolverr
     chart: ../helm-charts/tools/flaresolverr
     installed: {{ and $values.features.tools $values.flaresolverr.enabled }}
+    namespace: tools
+    createNamespace: true
+    values:
+      - ../values.yaml
+
+  - name: n8n
+    chart: ../helm-charts/tools/n8n
+    installed: {{ and $values.features.tools $values.n8n.enabled }}
     namespace: tools
     createNamespace: true
     values:
