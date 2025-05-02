@@ -1,7 +1,7 @@
 homarr:
   image:
     repository: ghcr.io/homarr-labs/homarr
-    tag: v1.18.1@sha256:de1027a4ba5931b82bf86ed0b255c0dd3ad3a20e47aa6cffcc1e98a67343b27a
+    tag: v1.19.0@sha256:e3030ed3465bc1d57052ebaf2cbb3bdc7cb091fe90c021fd10ca80fa929cb6da
     pullPolicy: IfNotPresent
   ports:
     - name: http
