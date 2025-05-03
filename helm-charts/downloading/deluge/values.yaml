@@ -1,7 +1,7 @@
 deluge:
   image:
     repository: lscr.io/linuxserver/deluge
-    tag: 2.1.1@sha256:9de4b097e0cb5dceb5ef0aaa4deb2565101c65e7d06770a59151770750a54858
+    tag: 2.2.0@sha256:31a78a86aaf3b325a6eff875e63f2079b47fe5769d4609dfe574283c0e655c82
     pullPolicy: IfNotPresent
   internal-ports:
     - name: http
