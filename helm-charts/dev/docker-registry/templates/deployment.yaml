@@ -18,10 +18,7 @@ spec:
       initContainers:
         - name: create-config-dir
           image: busybox
-          securityContext:
-            runAsUser: {{ include "service.value" (dict "context" . "prop" "uid") | int }}
-            runAsGroup: {{ include "service.value" (dict "context" . "prop" "gid") | int }}
-          command: [ 'sh', '-c', 'mkdir -p /configRoot/{{ .Chart.Name }} && chmod 700 /configRoot/{{ .Chart.Name }}' ]
+          command: [ 'sh', '-c', 'chown {{ include "service.value" (dict "context" . "prop" "uid") | int }}:{{ include "service.value" (dict "context" . "prop" "gid") | int }} /configRoot && chmod 700 /configRoot' ]
           volumeMounts:
             - name: config-root
               mountPath: /configRoot
@@ -35,10 +32,10 @@ spec:
           volumeMounts:
             - name: config-root
               mountPath: /etc/docker/registry
-              subPath: {{ .Chart.Name }}
             {{- include "service.volumeMounts" . | nindent 12 }}
       volumes:
         - name: config-root
           hostPath:
-            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}
+            type: DirectoryOrCreate
+            path: {{ required "A value for paths.configRoot is required" .Values.paths.configRoot }}/{{ .Chart.Name }}
         {{- include "service.volumes" . | nindent 8 }}
