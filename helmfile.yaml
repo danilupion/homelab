@@ -1,5 +1,5 @@
 helmfiles:
-  - path: helmfiles/infra.yaml
+  - path: helmfiles/infra.yaml.gotmpl
   - path: helmfiles/dev.yaml.gotmpl
   - path: helmfiles/downloading.yaml.gotmpl
   - path: helmfiles/indexing.yaml.gotmpl

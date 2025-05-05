@@ -43,6 +43,10 @@ features:
   dev: true
   o11y: true
 
+# Infra to enable
+infra:
+  cilium: true
+
 # Infra applications
 letsencrypt:
   acme:
