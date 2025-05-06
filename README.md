@@ -20,6 +20,13 @@ And run the following file to install the homelab.
 install-homelab.sh
 ```
 
+## Updating
+
+```bash
+helmfile deps
+helmfile apply
+```
+
 #### Versions
 - [cilium](https://cilium.io/): 1.17.3
 - [metallb](https://metallb.universe.tf/): 0.14.9

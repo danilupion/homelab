@@ -230,10 +230,10 @@ docker-registry:
   volumes:
     - name: storage
       hostPath:
-        path: /storage
+        path: /storage-in-host
   volumeMounts:
     - name: storage
-      mountPath: /storage
+      mountPath: /var/lib/registry # If this is changed, remember to change also the config file (/etc/docker/registry/config.yaml)
 
 ## Observability (o11y) applications
 metrics-server:
