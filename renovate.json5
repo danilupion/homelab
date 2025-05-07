@@ -4,8 +4,8 @@
     'config:best-practices',
   ],
   helmfile: {
-    fileMatch: [
-      '(^|/)helmfiles/.*\\.ya?ml(?:\\.gotmpl)?$',
+    managerFilePatterns: [
+      '/(^|/)helmfiles/.*\\.ya?ml(?:\\.gotmpl)?$/',
     ],
   },
   packageRules: [
@@ -20,7 +20,7 @@
       automerge: true,
       matchPackageNames: [
         'lscr.io/linuxserver/{/,}**',
-        'revenz/{/,}**'
+        'revenz/{/,}**',
       ],
     },
     {
@@ -29,42 +29,50 @@
         'lscr.io/linuxserver/jellyfin',
         'lscr.io/linuxserver/overseerr',
         'lscr.io/linuxserver/transmission',
-        'lscr.io/linuxserver/tautulli'
+        'lscr.io/linuxserver/tautulli',
       ],
       versioning: 'regex',
       extractVersion: '^v?(?!20\\d{2}\\.)(\\d+\\.\\d+\\.\\d+)$',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "lscr.io/linuxserver/emby"
+      matchDatasources: [
+        'docker',
       ],
-      "allowedVersions": ">=4.0.0 <6.0.0",
-      "versioning": "semver"
+      matchPackageNames: [
+        'lscr.io/linuxserver/emby',
+      ],
+      allowedVersions: '>=4.0.0 <6.0.0',
+      versioning: 'semver',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "lscr.io/linuxserver/lidarr"
+      matchDatasources: [
+        'docker',
       ],
-      "allowedVersions": ">=2.0.0 <8.0.0",
-      "versioning": "semver"
+      matchPackageNames: [
+        'lscr.io/linuxserver/lidarr',
+      ],
+      allowedVersions: '>=2.0.0 <8.0.0',
+      versioning: 'semver',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "lscr.io/linuxserver/qbittorrent"
+      matchDatasources: [
+        'docker',
       ],
-      "allowedVersions": ">=5.0.0 <14.0.0",
-      "versioning": "semver"
+      matchPackageNames: [
+        'lscr.io/linuxserver/qbittorrent',
+      ],
+      allowedVersions: '>=5.0.0 <14.0.0',
+      versioning: 'semver',
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "lscr.io/linuxserver/deluge"
+      matchDatasources: [
+        'docker',
       ],
-      "allowedVersions": ">=2.0.0 <14.0.0",
-      "versioning": "semver"
-    }
+      matchPackageNames: [
+        'lscr.io/linuxserver/deluge',
+      ],
+      allowedVersions: '>=2.0.0 <14.0.0',
+      versioning: 'semver',
+    },
   ],
 }
