@@ -1,7 +1,7 @@
 home-assistant:
   image:
     repository: lscr.io/linuxserver/homeassistant
-    tag: 2025.5.0@sha256:40df2c26fdd8ba28e07a5cccccbbb98a7be441276ab5b7c748ec4932bbab2743
+    tag: 2025.5.1@sha256:bd041424ee125940988ff0af457dac5b1eb81468dd4c653efe4ec77e1c9a3aee
     pullPolicy: IfNotPresent
   ports:
     - name: http
