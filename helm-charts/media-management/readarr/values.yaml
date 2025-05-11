@@ -1,7 +1,7 @@
 readarr:
   image:
     repository: lscr.io/linuxserver/readarr
-    tag: 0.4.15-develop@sha256:1cca8bc74d229cc93a3c815b83c881303f04980d4f2b1c4d5a39ac29ad8dfadc
+    tag: 0.4.16-develop@sha256:607e49b5d2314569164d22549cdb7ba821a33e25d2de323f44c6e3e294273bf0
     pullPolicy: IfNotPresent
   ports:
     - name: http
