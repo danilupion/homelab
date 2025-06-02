@@ -1,7 +1,7 @@
 n8n:
   image:
     repository: docker.n8n.io/n8nio/n8n
-    tag: 1.95.2@sha256:4af5586ec8d566430ec48f175ae96810f4818d13c733dac067b020c510b8cadf
+    tag: 1.96.0@sha256:a723c334d2010fb0b4ecd286299d22a82976b9663998efc319e528e5cf14b569
     pullPolicy: IfNotPresent
   ports:
     - name: http
