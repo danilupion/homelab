@@ -1,7 +1,7 @@
 nzbhydra2:
   image:
     repository: lscr.io/linuxserver/nzbhydra2
-    tag: 7.15.0@sha256:19ae7710c0e37b98913ea8fa88152ef3188440a6560a25c3364abd58450d371c
+    tag: 7.15.1@sha256:960e157bac3791b3314687843e01189f0a58c71c9205de604f4d7f69d860f757
     pullPolicy: IfNotPresent
   ports:
     - name: http
