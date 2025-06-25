@@ -1,7 +1,7 @@
 fileflows:
   image:
     repository: revenz/fileflows
-    tag: 25.06@sha256:2564e618aae62904e346668efe799af50a2c1ca79cfd542c2e0c906226f186e3
+    tag: 25.06@sha256:4b89ae604eb9777ca2f8add5597b1027d67c24f459e290a3dda0d1564ff39b94
     pullPolicy: IfNotPresent
   ports:
     - name: http
