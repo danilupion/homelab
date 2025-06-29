@@ -1,7 +1,7 @@
 filebrowser:
   image:
     repository: filebrowser/filebrowser
-    tag: v2.34.0@sha256:6b1b9262fca986d2f838e1ea8c7ec35ec41f47f74bdf1cda7f2923a87e59ed5e
+    tag: v2.34.2@sha256:0244defba61b8557096cb0d3974b67bd36bbaf1a14e9dd77d1a8f3e3498317e5
     pullPolicy: IfNotPresent
   ports:
     - name: http
