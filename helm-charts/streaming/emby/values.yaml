@@ -1,7 +1,7 @@
 emby:
   image:
     repository: lscr.io/linuxserver/emby
-    tag: 4.8.11@sha256:737da0e803eada19821cc6181416ac267dd82a67d89c689220d88644713028ee
+    tag: 4.8.11@sha256:3e9b2363fe16c3858fe8c7e32e949d819f85cb3be6705ceb37977e9c7b618e82
     pullPolicy: IfNotPresent
   puid: 1000
   guid: 1000
